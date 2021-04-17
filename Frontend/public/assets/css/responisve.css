@@ -1,0 +1,385 @@
+/*Big Size Screens*/
+@media (min-width: 1200px) and (max-width: 1300px)
+{
+	.events .owl-theme .owl-controls .owl-buttons div
+	{
+		right:0;
+	}
+	.events .owl-theme .owl-controls .owl-buttons div.owl-prev
+	{
+		left:0
+	}
+}
+@media (max-width: 1200px)
+{
+	.header .container
+	{
+		width:100%;
+	}
+	
+	.header .menu li a
+	{
+		padding:0 12px;
+	}
+	
+	.slider .slider-details .des
+	{
+		font-size:49px;
+	}
+	
+	.registration .addSocial
+	{
+		height:auto;
+	}
+	
+	.registration .addSocial .title
+	{
+		width:100%;
+	}
+
+	.registration .add
+	{
+		height:60px;
+	}
+	
+	.registration .addSocial .inputSocial
+	{
+		top:100%;
+	}
+}
+
+/* small Screens & tablets & Smart phone */
+@media (max-width: 991px) 
+{
+	
+	.slider img
+	{
+		height:auto;
+	}
+	
+	.slider .slider-details
+	{
+		padding-top:70px;
+	}
+		
+	.slider .slider-details .des 
+	{
+	    font-size: 27px;
+	    max-width: 320px;
+	    line-height: 47px;
+	}
+	
+	.itemsSlider
+	{
+		position:relative;
+	}
+	
+	.events .owl-theme .owl-controls .owl-buttons div
+	{
+		right:0;
+	}
+	.events .owl-theme .owl-controls .owl-buttons div.owl-prev
+	{
+		left:0
+	}
+	
+	.aboutUs .imageStyle .img2
+	{
+	    bottom: -26px;
+	}
+	
+	.memberships .list
+	{
+		margin-bottom:90px;
+	}
+	
+	.memberships .list li,
+	.memberships .list li:nth-of-type(even)
+	{
+		width:100%;
+		margin-left:0;
+	}
+	
+	.header
+	{
+		padding:16px 0;
+	}
+	
+	.header .logo
+	{
+		width:280px;
+		margin-top:0;
+	}
+	
+	.header .menu
+	{
+		display:none;
+	}
+	
+	.openMenu
+	{
+		display:block;
+	}
+	
+	.aboutUs .bgAbout
+	{
+		display:none;
+	}
+	
+	.footer .numberStyle
+	{
+		max-width:100%;
+	}
+	
+	.footer .copyRights
+	{
+		margin-left:0;
+		float:none;
+	}
+	
+	.footer .socialFooter
+	{
+		float:none;
+		display:inline-block;
+		margin:20px 0 10px;
+	}
+	
+	.footer .logoServers
+	{
+		float:none;
+		display:block;
+		width:212px;
+		margin:0 auto;
+	}
+	
+	.modalPost .modal-dialog
+	{
+		width:auto;
+	}
+	
+	.modalPost .modal-body,
+	.modalSing .modal-body
+	{
+		padding:20px;
+		padding-top:30px;
+	}
+	
+	.modalPost .images
+	{
+		margin-bottom:0;
+	}
+	
+	.modalPost .images .right,
+	.modalPost .images .left
+	{
+		padding:0;
+		width:100%;
+	}
+	
+	.modalPost .images .left img
+	{
+		height:auto;
+	}
+	
+	.registration .btnCheck
+	{
+		display:block;
+	}
+	
+	.registration .btnCheck .btnForm
+	{
+		width:100%;
+		margin-top:20px;
+	}
+	
+	.registration .formStyle
+	{
+		padding:30px 20px;
+	}
+	
+	.modalSing .modal-dialog
+	{
+		width:auto;
+	}
+	
+	.modalSing .desc
+	{
+		font-size:20px;
+		line-height:35px;
+	}
+	
+}
+
+/* Small Screens */
+@media (min-width: 768px) and (max-width: 991px) 
+{
+	
+	
+}
+
+/* Mobile & Tablets */
+@media (max-width: 767px) 
+{
+	.slider .slider-details
+	{
+		padding-top:40px;
+	}
+	.slider .the-slider-control
+	{
+		display:none;
+	}
+	
+	.itemsSlider
+	{
+		bottom:0;
+		padding-top:20px;
+	}
+	
+
+}
+
+/* Tablets */
+@media (min-width:480px) and (max-width: 767px)
+{
+	.registration .addSocial .inputSocial
+	{
+		left:-45px
+	}
+}
+
+/* Mobile */
+@media (max-width: 479px) 
+{
+	.header .logo
+	{
+		width:220px;
+	}
+	
+	.openMenu
+	{
+		margin-top:17px;
+	}
+	
+	.slider img
+	{
+		height:200px;
+	}
+	
+	.headerHeight
+	{
+		height:85px;
+	}
+	
+	.slider .slider-details .des
+	{
+		font-size:25px;
+	}
+	
+	.aboutUs .imageStyle .img2
+	{
+		width:160px;
+		left:20px;
+	}
+	
+	.aboutUs .imageStyle .img1
+	{
+		right:20px;
+		left:auto;
+		width:160px;
+	}
+	
+	.memberships .tabsPlans li
+	{
+		font-size:17px;
+	}
+	
+	.memberships .tabsPlans li.active:before, 
+	.memberships .tabsPlans li:hover:before
+	{
+		width:70px;
+		right:calc(50% - 35px)
+	}
+	
+	.memberships .tabsDetails li
+	{
+		font-size:17px;
+	}
+	
+	.memberships .tabsDetails li:not(:last-of-type)
+	{
+		margin-left:15px;
+	}
+	
+	.memberships .list
+	{
+		margin-bottom:20px;
+	}
+	
+	.memberships .btnStyle
+	{
+		width:100%;
+		float:none;
+		display:block;
+	}
+	
+	.memberships .price
+	{
+		float:none;
+		margin:25px auto 0
+	}
+	
+	.events
+	{
+		padding-bottom:30px;
+	}
+	
+	.events .titleStyle
+	{
+		margin-bottom:30px;
+	}
+	
+	.footer .numberStyle
+	{
+		height:auto;
+	}
+	
+	.itemEvent img
+	{
+		min-height:400px;
+	}
+	
+	.registration .addSocial .title,
+	.formStyle .checkDiv .text,
+	.paymentNow .title
+	{
+		font-size:14px;
+	}
+	.paymentNow
+	{
+		padding:0;
+	}
+	
+	.registration .steps li i
+	{
+		font-size:27px;
+		width:70px;
+		height:70px;
+		line-height:75px;
+	}
+	
+	.registration .steps li span
+	{
+		font-size:15px;
+	}
+	.registration .details .list li
+	{
+		padding-left:10px;
+		padding-right:10px;
+	}
+	
+	.registration .verification .title
+	{
+		font-size:26px;
+	}
+	
+}
