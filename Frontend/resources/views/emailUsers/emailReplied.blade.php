@@ -8,7 +8,7 @@
             <p>{{ $subject }}</p>
             <br />
             {!! $content !!}
-            <p>فريق الشاب الريادي | بزنس برو</p>
+            <p>فريق {{ \App\Models\Variable::getVar('العنوان عربي') }} | بزنس برو</p>
         </td>
     </tr>
     </tbody>

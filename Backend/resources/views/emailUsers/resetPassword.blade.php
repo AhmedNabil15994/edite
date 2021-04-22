@@ -8,8 +8,7 @@
             <p>{{ $subject }}</p>
             <br />
             <a href="{{ $content }}" target="_blank">تغيير كلمة المرور</a>
-            <p>شكرا جزيلا,</p>
-            <p>الشاب الريادي</p>
+            <p>فريق {{ \App\Models\Variable::getVar('العنوان عربي') }} | بزنس برو</p>
         </td>
     </tr>
     </tbody>
