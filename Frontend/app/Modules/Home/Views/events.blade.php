@@ -36,9 +36,9 @@
             </div>
         </div>
     </div>
+@include('Partials.eventModal')
 @endsection
 
-
-
 @section('scripts')
+<script src="{{ asset('/assets/js/event.js') }}"></script>
 @endsection

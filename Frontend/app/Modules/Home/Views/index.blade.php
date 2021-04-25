@@ -73,7 +73,7 @@
         
     </div>
 
-    <div class="aboutUs" data-scroll-index="2">
+    <div class="aboutUs" id="aboutUs" data-scroll-index="2">
         <div class="container">
             {{-- <img src="{{ $data->pages[0]->photo }}" class="bgAbout" alt="" /> --}}
             <div class="row">
@@ -180,7 +180,9 @@
             
         </div>
     </div>
+@include('Partials.eventModal')
 @endsection
 
 @section('scripts')
+<script src="{{ asset('/assets/js/event.js') }}"></script>
 @endsection

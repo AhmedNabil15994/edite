@@ -1,4 +1,4 @@
-<div class="footer" data-scroll-index="3">
+<div class="footer" id="footer" data-scroll-index="4">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-7">
