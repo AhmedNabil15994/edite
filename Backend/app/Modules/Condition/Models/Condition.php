@@ -53,7 +53,7 @@ class Condition extends Model{
         $data = new  \stdClass();
         $data->id = $source->id;
         $data->title = $source->title;
-        $data->description = $source->description;
+        $data->description = $source->description != null ? $source->description : '';
         $data->sort = $source->sort;
         $data->status = $source->status;
         $data->statusText = $source->status == 0 ? 'مسودة' : 'مفعلة';

@@ -70,8 +70,10 @@ $(function(){
 		$(this).addClass("active").siblings().removeClass("active");
 		
 		$("."+parent+" .tab").hide();
+		$("."+parent+" .tabber .tabbed:first-of-type").show();
 		
 		$("."+parent+" ." + myButton).fadeIn();
+
 		
 	});
 	

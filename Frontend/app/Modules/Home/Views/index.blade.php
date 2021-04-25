@@ -90,14 +90,14 @@
                         <div class="desc">
                             {!! $data->pages[0]->description !!}
                         </div>
-                        <a href="#">اقرأ المزيد</a>
+                        {{-- <a href="#">اقرأ المزيد</a> --}}
                     </div>
                 </div>
             </div>
         </div>
     </div>
     
-    <div class="memberships" data-scroll-index="3">
+    <div class="memberships" id="memberships" data-scroll-index="3">
         <h2 class="titleStyle">العضويات</h2>
         <div class="imgFooter"></div>
         <ul class="tabsBtns clearfix tabsPlans" id="tabs1">
@@ -113,8 +113,8 @@
                         <li id="tab{{ $key }}11" class="active">الشروط</li>
                         <li id="tab{{ $key }}22">المميزات</li>
                     </ul>
-                    <div class="tabs tabs2">
-                        <div class="tab{{ $key }}11 tab">
+                    <div class="tabs tabs2 tabber">
+                        <div class="tab{{ $key }}11 tab tabbed">
                             <ul class="list clearfix">
                             @foreach($membership->conditionsText as $condKey => $condition)                            
                                 <li>{{ $condition }}</li>
@@ -132,7 +132,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab{{ $key }}22 tab">
+                        <div class="tab{{ $key }}22 tab tabbed">
                             <ul class="list clearfix">
                             @foreach($membership->featruesText as $featKey => $feature)
                                 <li>{{ $feature }}</li>
