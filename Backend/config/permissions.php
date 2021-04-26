@@ -132,6 +132,31 @@ return [
     'FieldControllers@sort' => 'sort-field',
     'FieldControllers@charts' => 'charts-field',
 
+    'BlogCategoryControllers@index' => 'list-categories',
+    'BlogCategoryControllers@edit' => 'edit-category',
+    'BlogCategoryControllers@update' => 'edit-category',
+    'BlogCategoryControllers@fastEdit' => 'edit-category',
+    'BlogCategoryControllers@add' => 'add-category',
+    'BlogCategoryControllers@create' => 'add-category',
+    'BlogCategoryControllers@delete' => 'delete-category',
+    'BlogCategoryControllers@arrange' => 'sort-category',
+    'BlogCategoryControllers@sort' => 'sort-category',
+    'BlogCategoryControllers@charts' => 'charts-category',
+
+    'SliderControllers@index' => 'list-sliders',
+    'SliderControllers@edit' => 'edit-slider',
+    'SliderControllers@update' => 'edit-slider',
+    'SliderControllers@fastEdit' => 'edit-slider',
+    'SliderControllers@add' => 'add-slider',
+    'SliderControllers@create' => 'add-slider',
+    'SliderControllers@delete' => 'delete-slider',
+    'SliderControllers@arrange' => 'sort-slider',
+    'SliderControllers@sort' => 'sort-slider',
+    'SliderControllers@charts' => 'charts-slider',
+    'SliderControllers@uploadImage' => 'uploadImage-slider',
+    'SliderControllers@deleteImage' => 'deleteImage-slider',
+
+
     'OrderControllers@index' => 'list-orders',
     'OrderControllers@softDelete' => 'delete-order',
     'OrderControllers@delete' => 'delete-order',
@@ -143,6 +168,20 @@ return [
     'UserCardControllers@fastEdit' => 'edit-user-card',
     'UserCardControllers@delete' => 'delete-user-card',
     'UserCardControllers@charts' => 'charts-user-card',
+
+
+    'EventControllers@index' => 'list-events',
+    'EventControllers@edit' => 'edit-event',
+    'EventControllers@update' => 'edit-event',
+    'EventControllers@fastEdit' => 'edit-event',
+    'EventControllers@add' => 'add-event',
+    'EventControllers@create' => 'add-event',
+    'EventControllers@delete' => 'delete-event',
+    'EventControllers@arrange' => 'sort-event',
+    'EventControllers@sort' => 'sort-event',
+    'EventControllers@charts' => 'charts-event',
+    'EventControllers@uploadImage' => 'uploadImage-event',
+    'EventControllers@deleteImage' => 'deleteImage-event',
 
   
 ];

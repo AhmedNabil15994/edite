@@ -217,10 +217,20 @@ var KTDatatablesAdvancedMultipleControls = function() {
 					render: function(data, type, full, meta) {
 						var deleteButton = '';
 						var newMembButton = '';
+						var acceptButton = '';
+						var refuseButton = '';
 						if($('input[name="data-cols"]').val() == 1){
 							deleteButton = '<a href="#" class="dropdown-item" onclick="deleteItem('+data+')">'+
 		                                    '<i class="m-nav__link-icon fa fa-trash"></i>'+
 		                                    '<span class="m-nav__link-text">حذف</span>'+
+		                                '</a>';
+		                    acceptButton = '<a href="'+('/'+$('input.url').val()+'/'+full.id+'/status/2')+'" class="dropdown-item">'+
+		                                    '<i class="m-nav__link-icon fa fa-check"></i>'+
+		                                    '<span class="m-nav__link-text">قبول الطلب</span>'+
+		                                '</a>';
+		                    refuseButton = '<a href="'+('/'+$('input.url').val()+'/'+full.id+'/status/3')+'" class="dropdown-item">'+
+		                                    '<i class="m-nav__link-icon fa fa-times"></i>'+
+		                                    '<span class="m-nav__link-text">رفض الطلب</span>'+
 		                                '</a>';
 						}
 
@@ -236,6 +246,8 @@ var KTDatatablesAdvancedMultipleControls = function() {
 		                            '</button>'+
 		                            '<div class="dropdown-menu" dropdown-toggle="hover">'+
 		                                deleteButton+
+		                                acceptButton+
+		                                refuseButton+
 		                                newMembButton+
 		                            '</div>'+
 		                        '</div>';

@@ -115,6 +115,10 @@ class WebActions extends Model{
             $text = 'بطاقات الاعضاء';
         }elseif($name == 'Field'){
             $text = 'المجالات الفنية';
+        }elseif($name == 'Category'){
+            $text = 'التصنيفات';
+        }elseif($name == 'Slider'){
+            $text = 'الاسلايدر';
         }
         return [$text,$url];
     }

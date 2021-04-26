@@ -8,10 +8,12 @@ use App\Models\Page;
 use App\Models\Field;
 use App\Models\City;
 use App\Models\Membership;
+use App\Models\Slider;
 use App\Models\UserCard;
 use App\Models\User;
 use App\Models\Variable;
 use App\Models\Order;
+use App\Models\Category;
 use App\Models\OrderDetails;
 use App\Models\WebActions;
 use App\Models\ContactUs;
@@ -99,6 +101,8 @@ class HomeControllers extends Controller {
         $data['memberships'] = Membership::dataList(1)['data'];
         $data['pages'] = Page::dataList(1,[1])['data'];
         $data['events'] = Event::dataList(1,null,3)['data'];
+        $data['categories'] = Category::dataList(1)['data'];
+        $data['sliders'] = Slider::dataList(1)['data'];
         return view('Home.Views.index')->with('data',(object) $data);
     }
 

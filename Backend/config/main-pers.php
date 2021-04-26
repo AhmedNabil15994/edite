@@ -75,6 +75,16 @@ return [
             'viewTitle'=>'المجالات الفنية',
             'modulePermissions' => 'edit-field,add-field,delete-field,sort-field,charts-field',
         ],  
+        'BlogCategoryControllers@index' => [
+            'title'=>'list-categories',
+            'viewTitle'=>'التصنيفات',
+            'modulePermissions' => 'edit-category,add-category,delete-category,sort-category,charts-category',
+        ],  
+        'SliderControllers@index' => [
+            'title'=>'list-sliders',
+            'viewTitle'=>'الاسلايدر',
+            'modulePermissions' => 'edit-slider,add-slider,delete-slider,sort-slider,charts-slider,uploadImage-slider,deleteImage-slider',
+        ],
         'OrderControllers@index' => [
             'title'=>'list-orders',
             'viewTitle'=>'طلبات الاعضاء',
@@ -84,6 +94,11 @@ return [
             'title'=>'list-user-cards',
             'viewTitle'=>'العضويات',
             'modulePermissions' => 'edit-user-card,delete-user-card,charts-user-card',
+        ],
+        'EventControllers@index' => [
+            'title'=>'list-events',
+            'viewTitle'=>'الفعاليات',
+            'modulePermissions' => 'edit-event,add-event,delete-event,sort-event,charts-event,uploadImage-event,deleteImage-event',
         ],
     ],
 

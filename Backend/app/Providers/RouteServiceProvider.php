@@ -94,6 +94,8 @@ class RouteServiceProvider extends ServiceProvider
             require app_path('Modules/UserCard/routes.php');
             require app_path('Modules/Event/routes.php');
             require app_path('Modules/Field/routes.php');
+            require app_path('Modules/Category/routes.php');
+            require app_path('Modules/Slider/routes.php');
 
         });
     }

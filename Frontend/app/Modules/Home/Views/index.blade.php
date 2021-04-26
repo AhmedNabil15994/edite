@@ -10,18 +10,18 @@
 	<div class="relative" data-scroll-index="1">
         <div class="slider">
             <ul id="slider" class="the-slider-inner">
+                @foreach($data->sliders as $slider)
                 <li>
                     <div class="background-slider"></div>
-                        <img src="{{ asset('/assets/images/sliderImage.png') }}" alt="" />
+                        <img src="{{ $slider->photo }}" alt="" />
                     <div class="slider-details">
                         <div class="container">
-                            <div class="des">الجمعية العربية السعودية للثقافة والفنون</div>
+                            <div class="des">{{ $slider->title }}</div>
                         </div>
                         
                     </div>
-    
                 </li>
-    
+                @endforeach
             </ul>
             <ul class="list-unstyled the-slider-control">
                 <li><span id="slider-next"></span></li>
@@ -32,42 +32,12 @@
        
         <div class="itemsSlider">
             <div class="containerItems clearfix Owl" id="containerItems">
+                @foreach($data->categories as $category)
                 <div class="item">
-                    <i class="flaticon-drum"></i>
-                    <h2 class="title">التراث والفنون الشعبية</h2>
+                    <i class="{{ $category->icon }}"></i>
+                    <h2 class="title">{{ $category->title }}</h2>
                 </div>
-                <div class="item">
-                    <i class="flaticon-music-note"></i>
-                    <h2 class="title">الموسيقي</h2>
-                </div>
-                <div class="item">
-                    <i class="flaticon-spotlight"></i>
-                    <h2 class="title">المسرح</h2>
-                </div>
-                <div class="item">
-                    <i class="flaticon-book"></i>
-                    <h2 class="title">التأليف والكتابة</h2>
-                </div>
-                <div class="item">
-                    <i class="flaticon-color-palette"></i>
-                    <h2 class="title">الفنون التشكيلية</h2>
-                </div>
-                <div class="item">
-                    <i class="flaticon-sketch"></i>
-                    <h2 class="title">الخط العربي</h2>
-                </div>
-                <div class="item">
-                    <i class="flaticon-camera"></i>
-                    <h2 class="title">التصوير   الضوئي</h2>
-                </div>
-                <div class="item">
-                    <i class="flaticon-writing"></i>
-                    <h2 class="title">الشعر</h2>
-                </div>
-                <div class="item">
-                    <i class="flaticon-video-camera"></i>
-                    <h2 class="title">الأفلام</h2>
-                </div>
+                @endforeach
             </div>
         </div>
         

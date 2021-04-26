@@ -1,6 +1,6 @@
 {{-- Extends layout --}}
 @extends('Layouts.master')
-@section('title','مجموعات المشرفين - اضافة')
+@section('title','التصنيفات - اضافة')
 
 {{-- Content --}}
 @section('sub-header')
@@ -15,7 +15,7 @@
             <!--begin::Page Heading-->
             <div class="d-flex align-items-baseline flex-wrap mr-5">
                 <!--begin::Page Title-->
-                <h3 class="text-dark font-weight-bold my-1 mr-5 m-subheader__title--separator">مجموعات المشرفين</h3>
+                <h3 class="text-dark font-weight-bold my-1 mr-5 m-subheader__title--separator">التصنيفات</h3>
                 <!--end::Page Title-->
                 <!--begin::Breadcrumb-->
                 <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
@@ -23,10 +23,10 @@
                         <a href="{{ URL::to('/') }}" class="text-muted"><i class="m-nav__link-icon la la-home"></i></a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{ URL::to('/groups') }}" class="text-muted">مجموعات المشرفين</a>
+                        <a href="{{ URL::to('/categories') }}" class="text-muted">التصنيفات</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{ URL::to('/groups/add') }}" class="text-muted">اضافة</a>
+                        <a href="{{ URL::to('/categories/add') }}" class="text-muted">اضافة</a>
                     </li>
                 </ul>
                 <!--end::Breadcrumb-->
@@ -42,20 +42,20 @@
                     <i class="ki ki-bold-more-hor"></i>
                 </button>
                 <div class="dropdown-menu" dropdown-toggle="hover">
-                    @if(\Helper::checkRules('add-group'))
-                    <a href="{{ URL::to('/groups/add') }}" class="dropdown-item">
+                    @if(\Helper::checkRules('add-category'))
+                    <a href="{{ URL::to('/categories/add') }}" class="dropdown-item">
                         <i class="m-nav__link-icon fa fa-plus"></i>
                         <span class="m-nav__link-text">اضافة</span>
                     </a>
                     @endif
-                    @if(\Helper::checkRules('sort-group'))
-                    <a href="{{ URL::to('/groups/arrange') }}" class="dropdown-item">
+                    @if(\Helper::checkRules('sort-category'))
+                    <a href="{{ URL::to('/categories/arrange') }}" class="dropdown-item">
                         <i class="m-nav__link-icon fa fa-sort-numeric-up"></i>
                         <span class="m-nav__link-text">ترتيب</span>
                     </a>
                     @endif
-                    @if(\Helper::checkRules('charts-group'))
-                    <a href="{{ URL::to('/groups/charts') }}" class="dropdown-item">
+                    @if(\Helper::checkRules('charts-category'))
+                    <a href="{{ URL::to('/categories/charts') }}" class="dropdown-item">
                         <i class="m-nav__link-icon flaticon-graph"></i>
                         <span class="m-nav__link-text">الاحصائيات</span>
                     </a>
@@ -76,7 +76,7 @@
     <div class="card-header">
         <div class="card-title">
             <span class="card-icon">
-                <i class="menu-icon flaticon-users"></i>
+                <i class="menu-icon fas fa-blog"></i>
             </span>
             <h3 class="card-label">اضافة</h3>
         </div>
@@ -89,51 +89,21 @@
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="AddTabs" role="tabpanel">
-                <form class="forms m-form m-form--group-seperator-dashed" method="POST" action="{{ URL::to('/groups/create') }}">  
+                <form class="forms m-form m-form--group-seperator-dashed" method="POST" action="{{ URL::to('/categories/create') }}">  
                     @csrf
                     <div class="form-group m-form__group row" style="padding-right: 0;padding-left: 0;padding-bottom: 10px;">
                         <div class="col-lg-12">
                             <label class="label label-danger label-pill label-inline mr-2 mt-15" style="margin-bottom: 20px;">العنوان عربي</label>
-                            <input type="hidden" name="status" value="">
                             <input class="form-control mb-5" type="text" name="title" value="{{ old('title') }}" maxlength="" placeholder="">
                         </div>
-                    </div>  
+                    </div>
                     <div class="form-group m-form__group row" style="padding-right: 0;padding-left: 0;padding-bottom: 10px;">
                         <div class="col-lg-12">
-                            <label class="label label-danger label-pill label-inline mr-2 mt-15" style="margin-bottom: 20px;">الصلاحيات: </label>
-                            <div class="row">
-                                @foreach($data->permissions as $key => $onePermission)
-                                <div class="col-lg-6 col-sm-6">
-                                    <label class="checkbox checkbox-success">
-                                    <input type="checkbox" {{ $onePermission['viewTitle'] == 'الرئيسية' ? 'checked' : '' }} name="{{ $onePermission['title'] }}" value="{{ $onePermission['modulePermissions'] }}" />
-                                    <span></span>{{ $onePermission['viewTitle'] }}</label>
-                                </div>
-                                @endforeach
-
-                                <div class="col-lg-12">
-                                    <div class="row">
-                                        <div class="col-lg-6 col-sm-6">
-                                            <br>
-                                            <button type="button" style="width:100%;" class="btn btn-success btn-lg btn-block SelectAllCheckBox">اختيار الكل</button>
-                                        </div>
-                                        <div class="col-lg-6 col-sm-6">
-                                            <br>
-                                            <button type="button" style="width:100%;" class="btn btn-danger btn-lg btn-block UnSelectAllCheckBox">عدم اختيار الكل</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <label class="label label-danger label-pill label-inline mr-2" style="margin-bottom: 20px;">الايقونة</label>
+                            <input type="hidden" name="status" value="">
+                            <input class="form-control mb-5 m-input" type="text" name="icon" value="{{ old('icon') }}" maxlength="" placeholder="">
                         </div>
-                    </div>   
-                    <div class="form-group m-form__group row" style="padding-right: 0;padding-left: 0;padding-bottom: 10px;">
-                        <div class="col-lg-12">
-                            <label class="label label-danger label-pill label-inline mr-2 mt-15" style="margin-bottom: 20px;">صلاحيات اداريه: </label>
-                            <select name="admin_privs" class="form-control mb-5 select2" id="kt_select2_1">
-                                <option value="0" {{ old('admin_privs') == 0 ? 'selected' : '' }}>لا</option>
-                                <option value="1" {{ old('admin_privs') == 1 ? 'selected' : '' }}>نعم</option>
-                            </select>
-                        </div>
-                    </div>     
+                    </div>
                 </form>
             </div>
         </div>

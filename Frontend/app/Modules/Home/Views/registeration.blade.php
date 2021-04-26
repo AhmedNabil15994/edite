@@ -64,7 +64,7 @@
 							<div class="col-md-6">
 								<div class="selectStyle" id="select1">
 									<select class="select2" name="gender">
-										<option value="" disabled>الجنس:</option>
+										<option value="">الجنس:</option>
 										<option value="1" {{ isset($data->data->gender) && $data->data->gender == 1  ? : (old('gender') == 1 ? 'selected' : '') }}>ذكر</option>
 										<option value="2" {{ isset($data->data->gender) && $data->data->gender == 2  ? : (old('gender') == 2 ? 'selected' : '') }}>أنثي</option>
 									</select>
@@ -73,7 +73,6 @@
 							<div class="col-md-6">
 								<div class="selectStyle" id="select2">
 									<select class="select2" name="field_id">
-										<option value="" disabled>المجال الفني:</option>
 										@foreach($data->fields as $field)
 										<option value="{{ $field->id }}" {{ isset($data->data->field_id) && $data->data->field_id == $field->id ? 'selected' : (old('field_id') == $field->id ? 'selected' : '') }}>{{ $field->title }}</option>
 										@endforeach
@@ -83,7 +82,6 @@
 							<div class="col-md-6">
 								<div class="selectStyle" id="select3">
 									<select class="select2" name="city_id">
-										<option value="" disabled>المدينة:</option>
 										@foreach($data->cities as $city)
 										<option value="{{ $city->id }}" {{ isset($data->data->city_id) && $data->data->city_id == $city->id ? 'selected' : (old('city_id') == $city->id ? 'selected' : '') }}>{{ $city->title }}</option>
 										@endforeach
@@ -93,7 +91,7 @@
 							<div class="col-md-6">
 								<div class="selectStyle" id="select4">
 									<select class="select2" name="membership_id">
-										<option value="" disabled>حدد العضوية:</option>
+										<option value="">حدد العضوية:</option>
 										@foreach($data->memberships as $membership)
 										<option value="{{ $membership->id }}" {{ Request::has('membership_id') && Request::get('membership_id') == $membership->id ? 'selected' : (isset($data->data->membership_id)  && $data->data->membership_id == $membership->id ? 'selected' : '' ) }}>{{ $membership->title }}</option>
 										@endforeach

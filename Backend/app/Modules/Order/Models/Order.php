@@ -73,7 +73,7 @@ class Order extends Model{
         $dataObj->id = $source->id;
         $dataObj->order_no = $source->order_no;
         $dataObj->name = $source->name;
-        $dataObj->brief = $source->brief;
+        $dataObj->brief = $source->brief != null ? $source->brief : '';
         $dataObj->gender = $source->gender;
         $dataObj->phone = $source->phone;
         $dataObj->email = $source->email;
@@ -87,10 +87,10 @@ class Order extends Model{
         $dataObj->membership_id = $source->membership_id;
         $dataObj->membershipObj = Membership::getOne($source->membership_id);
         $dataObj->membershipText = $dataObj->membershipObj->title;
-        $dataObj->identity_no = $detailsObj->identity_no;
-        $dataObj->identity_end_date = $detailsObj->identity_end_date;
-        $dataObj->image = $detailsObj->image;
-        $dataObj->identity_image = $detailsObj->identity_image;
+        $dataObj->identity_no = $source->Details != null ? ($detailsObj->identity_no != null ? $detailsObj->identity_no : '') : '';
+        $dataObj->identity_end_date = $source->Details != null ? ($detailsObj->identity_end_date != null ? $detailsObj->identity_end_date : '') : '';
+        $dataObj->image = $source->Details != null ? $detailsObj->image : '';
+        $dataObj->identity_image = $source->Details != null ? $detailsObj->identity_image : '';
         $dataObj->status = $source->status;
         $dataObj->statusText = self::getStatus($source->status);
         $dataObj->sort = $source->sort;

@@ -532,6 +532,7 @@ input[type="number"] {
     -moz-transition: all 0.3s;
     -o-transition: all 0.3s;
     transition: all 0.3s;
+    min-height: 200px;
 }
 
 .itemsSlider .containerItems .item:hover
@@ -882,6 +883,7 @@ input[type="number"] {
 .events .item
 {
 	padding:0 20px;
+	padding-left: 0;
 }
 
 .itemEvent
@@ -911,7 +913,9 @@ input[type="number"] {
 {
 	width:100%;
 	position:relative;
-	z-index:1
+	z-index:1;
+	width:555px;
+	height:500px;
 }
 
 .itemEvent .details
@@ -2089,7 +2093,9 @@ input[type="number"] {
 	text-align: right;
 	direction: rtl;
 }
-
+.owl-carousel .owl-wrapper-outer{
+	padding-left: 180px;
+}
 
 
 

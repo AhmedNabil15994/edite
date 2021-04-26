@@ -37,8 +37,8 @@
                     </a>
                 </li>
 
-                <?php if(\Helper::checkRules('list-pages,list-cities,list-fields')): ?>
-                <li class="menu-item menu-item-submenu <?php echo e(Active(URL::to('/cities*'),'menu-item-open active')); ?> <?php echo e(Active(URL::to('/fields*'),'menu-item-open active')); ?> <?php echo e(Active(URL::to('/pages*'),'menu-item-open active')); ?>" aria-haspopup="true" data-menu-toggle="hover">
+                <?php if(\Helper::checkRules('list-pages,list-cities,list-fields,list-sliders,list-categories')): ?>
+                <li class="menu-item menu-item-submenu <?php echo e(Active(URL::to('/cities*'),'menu-item-open active')); ?> <?php echo e(Active(URL::to('/sliders*'),'menu-item-open active')); ?> <?php echo e(Active(URL::to('/categories*'),'menu-item-open active')); ?> <?php echo e(Active(URL::to('/fields*'),'menu-item-open active')); ?> <?php echo e(Active(URL::to('/pages*'),'menu-item-open active')); ?>" aria-haspopup="true" data-menu-toggle="hover">
                     <a href="#" class="menu-link menu-toggle">
                         <i class="menu-icon flaticon-home-2"></i>
                         <span class="menu-text">الواجهة الرئيسية</span>
@@ -65,6 +65,22 @@
                                 <a href="<?php echo e(URL::to('/fields')); ?>" class="menu-link ">
                                     <i class="menu-bullet menu-bullet-dot"></i>
                                     <span class="menu-text">المجالات الفنية</span>
+                                </a>
+                            </li>
+                            <?php endif; ?>
+                            <?php if(\Helper::checkRules('list-categories')): ?>
+                            <li class="menu-item <?php echo e(Active(URL::to('/categories*'))); ?> " aria-haspopup="true">
+                                <a href="<?php echo e(URL::to('/categories')); ?>" class="menu-link ">
+                                    <i class="menu-bullet menu-bullet-dot"></i>
+                                    <span class="menu-text">التصنيفات</span>
+                                </a>
+                            </li>
+                            <?php endif; ?>
+                            <?php if(\Helper::checkRules('list-sliders')): ?>
+                            <li class="menu-item <?php echo e(Active(URL::to('/sliders*'))); ?> " aria-haspopup="true">
+                                <a href="<?php echo e(URL::to('/sliders')); ?>" class="menu-link ">
+                                    <i class="menu-bullet menu-bullet-dot"></i>
+                                    <span class="menu-text">الاسلايدر</span>
                                 </a>
                             </li>
                             <?php endif; ?>

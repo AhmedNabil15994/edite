@@ -82,6 +82,27 @@ class OrderControllers extends Controller {
         return \TraitsFunc::SuccessResponse('تم التعديل بنجاح');
     }
 
+    public function status($id,$status)
+    {
+        $id = (int) $id;
+        $status = (int) $status;
+
+        $menuObj = Order::getOne($id);
+        if($menuObj == null || !in_array($status, [2,3])) {
+            return Redirect('404');
+        }
+
+        if($status == 2){
+            $message = 'تم الموافقة علي طلبكم وهذا رابط استكمال التسجيل : '.config('app.FRONT_URL').'complete/'.encrypt($menuObj->id);
+            JawalyHelper::sendSMS($menuObj->phone,$message);
+        }
+
+        $menuObj->status = $status;
+        $menuObj->save();
+        \Session::flash('success','تم التعديل بنجاح');
+        return redirect()->back();
+    }
+
     public function newMember(){
         $input = \Request::all();
         $id = $input['id'];

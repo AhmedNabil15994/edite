@@ -16,6 +16,9 @@ class VerifyCsrfToken extends Middleware
         '/pages/add/uploadImage',
         '/pages/edit/*/editImage',
 
+        '/sliders/add/uploadImage',
+        '/sliders/edit/*/editImage',
+
         '/events/add/uploadImage',
         '/events/edit/*/editImage',
         '/events/edit/*/deleteImage',
@@ -31,5 +34,7 @@ class VerifyCsrfToken extends Middleware
         '/photos/edit/*/editImage',
         '/photos/edit/*/deleteImage',
         '/photos/edit/*/uploadImage',
+
+
     ];
 }
