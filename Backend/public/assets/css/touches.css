@@ -635,3 +635,7 @@ div.ranges ul li:not(.active):hover{
 	width: 120px;
 	height: 120px;
 }
+table tr td a.social{
+	font-weight: bold;
+	font-size: 15px;
+}

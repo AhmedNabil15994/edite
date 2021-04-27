@@ -137,17 +137,17 @@
                                 </div>  
                                 <div class="col-lg-3 col-md-4 col-sm-6">
                                     <label>الاسم:</label>
-                                    <input type="text" class="form-control m-input" data-col-index="5" name="name" value="<?php echo e(Request::get('name')); ?>">
+                                    <input type="text" class="form-control m-input" data-col-index="3" name="name" value="<?php echo e(Request::get('name')); ?>">
                                     <br>
                                 </div>
                                 <div class="col-lg-3 col-md-4 col-sm-6">
                                     <label>البريد الالكتروني:</label>
-                                    <input type="text" class="form-control m-input" data-col-index="6" name="email" value="<?php echo e(Request::get('email')); ?>">
+                                    <input type="text" class="form-control m-input" data-col-index="4" name="email" value="<?php echo e(Request::get('email')); ?>">
                                     <br>
                                 </div>
                                 <div class="col-lg-3 col-md-4 col-sm-6">
                                     <label>رقم الجوال:</label>
-                                    <input type="text" class="form-control m-input" data-col-index="7" name="phone" value="<?php echo e(Request::get('phone')); ?>">
+                                    <input type="text" class="form-control m-input" data-col-index="5" name="phone" value="<?php echo e(Request::get('phone')); ?>">
                                     <br>
                                 </div>
                                 <div class="col-lg-3 col-md-4 col-sm-6">
@@ -162,7 +162,7 @@
                                 </div>
                                 <div class="col-lg-3 col-md-4 col-sm-6">
                                     <label>شرح الخدمة:</label>
-                                    <input type="text" class="form-control m-input" data-col-index="8" name="service_brief" value="<?php echo e(Request::get('service_brief')); ?>">
+                                    <input type="text" class="form-control m-input" data-col-index="6" name="service_brief" value="<?php echo e(Request::get('service_brief')); ?>">
                                     <br>
                                 </div>
                                 <div class="col-lg-3 col-md-4 col-sm-6">
@@ -213,7 +213,7 @@
                                     <label>تاريخ الارسال:</label>
                                     <div class="row">
                                         <div class="col">
-                                            <input type="text" class="form-control datetimepicker-input" id="kt_datetimepicker_7_1" placeholder="تاريخ الارسال"  name="created_at" value="<?php echo e(Request::get('created_at')); ?>" data-col-index="12" data-toggle="datetimepicker" data-target="#kt_datetimepicker_7_1" />
+                                            <input type="text" class="form-control datetimepicker-input" id="kt_datetimepicker_7_1" placeholder="تاريخ الارسال"  name="created_at" value="<?php echo e(Request::get('created_at')); ?>" data-col-index="8" data-toggle="datetimepicker" data-target="#kt_datetimepicker_7_1" />
                                         </div>
                                     </div>
                                 </div>
@@ -249,8 +249,6 @@
                 <tr>
                     <th>ID</th>
                     <th>اختيار</th>
-                    <th>الصورة الشخصية</th>
-                    <th>صورة الهوية</th>
                     <th>رقم الطلب</th>
                     <th>الاسم</th>
                     <th>البريد الالكتروني</th>
@@ -261,9 +259,8 @@
                     <th>العضوية</th>
                     <th>السيرة الذاتية</th>
                     <th>الحالة</th>
-                    <th>رقم الهوية</th>
-                    <th>تاريخ انتهاء الهوية</th>
                     <th>تاريخ الارسال</th>
+                    <th>روابط التواصل الاجتماعي</th>
                     <th>الاجراءات</th>
                 </tr>
             </thead>
@@ -271,8 +268,6 @@
                 <tr>
                     <th>ID</th>
                     <th>اختيار</th>
-                    <th>الصورة الشخصية</th>
-                    <th>صورة الهوية</th>
                     <th>رقم الطلب</th>
                     <th>الاسم</th>
                     <th>البريد الالكتروني</th>
@@ -283,9 +278,8 @@
                     <th>العضوية</th>
                     <th>السيرة الذاتية</th>
                     <th>الحالة</th>
-                    <th>رقم الهوية</th>
-                    <th>تاريخ انتهاء الهوية</th>
                     <th>تاريخ الارسال</th>
+                    <th>روابط التواصل الاجتماعي</th>
                     <th>الاجراءات</th>
                 </tr>
             </tfoot>

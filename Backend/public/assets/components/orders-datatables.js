@@ -85,7 +85,7 @@ var KTDatatablesAdvancedMultipleControls = function() {
 			       	dtParms.status = $('select[name="status"]').val();
 			       	dtParms.category_id = $('select[name="category_id"]').val();
 			        dtParms.columnsDef= [
-						'id','order_no' ,'name','email','phone','card_name','fieldText','cityText','membershipText','brief','statusText','created_at'];
+						'id','order_no' ,'name','email','phone','card_name','fieldText','cityText','membershipText','brief','statusText','created_at','details'];
 			        return dtParms
 			    }
 			},
@@ -103,6 +103,7 @@ var KTDatatablesAdvancedMultipleControls = function() {
 				{data: 'brief',},
 				{data: 'statusText',},
 				{data: 'created_at', type: 'date'},
+				{data: 'details'},
 				{data: 'id', responsivePriority: -1},
 			],
 			columnDefs: [
@@ -207,6 +208,18 @@ var KTDatatablesAdvancedMultipleControls = function() {
 					className: 'edits dates',
 					render: function(data, type, full, meta) {
 						return '<a class="editable" data-col="created_at" data-id="'+full.id+'">'+data+'</a>';
+					},
+				},
+				{
+					targets: 13,
+					title: 'روابط التواصل الاجتامعي',
+					className: '',
+					render: function(data, type, full, meta) {
+						return '<a class="editable social" target="_blank" href="'+full.details.facebook+'" data-col="facebook" data-id="'+full.id+'">'+full.details.facebook+'</a><br>'+
+								'<a class="editable social" target="_blank" href="'+full.details.twitter+'" data-col="twitter" data-id="'+full.id+'">'+full.details.twitter+'</a><br>'+
+								'<a class="editable social" target="_blank" href="'+full.details.instagram+'" data-col="instagram" data-id="'+full.id+'">'+full.details.instagram+'</a><br>'+
+								'<a class="editable social" target="_blank" href="'+full.details.youtube+'" data-col="youtube" data-id="'+full.id+'">'+full.details.youtube+'</a><br>'+
+								'<a class="editable social" target="_blank" href="'+full.details.snapchat+'" data-col="snapchat" data-id="'+full.id+'">'+full.details.snapchat+'</a><br>';
 					},
 				},
 				{

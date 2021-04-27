@@ -84,6 +84,7 @@ class Order extends Model{
         $dataObj->city_id = $source->city_id;
         $dataObj->cityObj = City::getOne($source->city_id);
         $dataObj->cityText = $dataObj->cityObj->title;
+        $dataObj->details = $source->Details != null ? $detailsObj : '';
         $dataObj->membership_id = $source->membership_id;
         $dataObj->membershipObj = Membership::getOne($source->membership_id);
         $dataObj->membershipText = $dataObj->membershipObj->title;
