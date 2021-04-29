@@ -21,7 +21,7 @@
                         <a href="<?php echo e(URL::to('/')); ?>" class="text-muted"><i class="m-nav__link-icon la la-home"></i></a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="<?php echo e(URL::to('/'.$data->url)); ?>" class="text-muted"><?php echo e($data->title); ?></a>
+                        <a href="<?php echo e(URL::to('/users')); ?>" class="text-muted"><?php echo e($data->title); ?></a>
                     </li>
                 </ul>
                 <!--end::Breadcrumb-->
@@ -38,19 +38,19 @@
                 </button>
                 <div class="dropdown-menu" dropdown-toggle="hover">
                     <?php if(\Helper::checkRules('add-user')): ?>
-                    <a href="<?php echo e(URL::to('/'.$data->url.'/add')); ?>" class="dropdown-item">
+                    <a href="<?php echo e(URL::to('/users/add')); ?>" class="dropdown-item">
                         <i class="m-nav__link-icon fa fa-plus"></i>
                         <span class="m-nav__link-text">اضافة</span>
                     </a>
                     <?php endif; ?>
                     <?php if(\Helper::checkRules('sort-user')): ?>
-                    <a href="<?php echo e(URL::to('/'.$data->url.'/arrange')); ?>" class="dropdown-item">
+                    <a href="<?php echo e(URL::to('/users/arrange')); ?>" class="dropdown-item">
                         <i class="m-nav__link-icon fa fa-sort-numeric-up"></i>
                         <span class="m-nav__link-text">ترتيب</span>
                     </a>
                     <?php endif; ?>
                     <?php if(\Helper::checkRules('charts-user')): ?>
-                    <a href="<?php echo e(URL::to('/'.$data->url.'/charts')); ?>" class="dropdown-item">
+                    <a href="<?php echo e(URL::to('/users/charts')); ?>" class="dropdown-item">
                         <i class="m-nav__link-icon flaticon-graph"></i>
                         <span class="m-nav__link-text">الاحصائيات</span>
                     </a>
@@ -188,6 +188,16 @@
                                     </select>
                                     <br>
                                 </div>
+                                <div class="col-lg-3 col-md-4 col-sm-6" data-col-index="3">
+                                    <label>المدينة:</label>
+                                    <select class="form-control" name="city_id">
+                                        <option value="0">حدد اختيارك</option>
+                                        <?php $__currentLoopData = $data->cities; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $city): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($city->id); ?>" <?php echo e(Request::get('city_id')  == $city->id ? 'selected' : ''); ?>><?php echo e($city->title); ?></option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    </select>
+                                    <br>
+                                </div>
                             </div>
                             <div class="m-separator m-separator--md m-separator--dashed"></div>
                             <div class="row">
@@ -225,6 +235,7 @@
                     <th>البريد الالكتروني</th>
                     <th>العنوان</th>
                     <th>رقم الجوال</th>
+                    <th>المدينة</th>
                     <th>الاجراءات</th>
                 </tr>
             </thead>
@@ -237,6 +248,7 @@
                     <th>البريد الالكتروني</th>
                     <th>العنوان</th>
                     <th>رقم الجوال</th>
+                    <th>المدينة</th>
                     <th>الاجراءات</th>
                 </tr>
             </tfoot>

@@ -102,6 +102,9 @@
 								<textarea type="text" name="brief" placeholder="السيرة الذاتية المختصرة:">{{ isset($data->data->brief) ? $data->data->brief : old('brief') }}</textarea>
 							</div>
 							<div class="col-md-12">
+								<input type="text" placeholder="كوبون الخصم:" name="coupon" value="{{ isset($data->data->coupon) ? $data->data->coupon  : old('coupon') }}" />
+							</div>
+							<div class="col-md-12">
 								<div class="addSocial clearfix">
 									<span class="title">إضافة مواقع التواصل الاجتماعي</span>
 									<div class="add" id="add1">

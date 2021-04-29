@@ -100,6 +100,11 @@ return [
             'viewTitle'=>'الفعاليات',
             'modulePermissions' => 'edit-event,add-event,delete-event,sort-event,charts-event,uploadImage-event,deleteImage-event',
         ],
+        'CouponControllers@index' => [
+            'title'=>'list-coupons',
+            'viewTitle'=>'كوبونات الخصم',
+            'modulePermissions' => 'edit-coupon,add-coupon,delete-coupon,sort-coupon,charts-coupon',
+        ],
     ],
 
     

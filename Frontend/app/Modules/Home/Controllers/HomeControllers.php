@@ -18,6 +18,7 @@ use App\Models\OrderDetails;
 use App\Models\WebActions;
 use App\Models\ContactUs;
 use App\Models\Event;
+use App\Models\Coupon;
 
 class HomeControllers extends Controller {
 
@@ -176,6 +177,7 @@ class HomeControllers extends Controller {
         $input = \Request::all();
         $id = decrypt($id);
         $id = (int) $id;
+
         if(!isset($input['privacy']) || empty($input['privacy'])){
             Session::flash('error','يجب الموافقة علي الشروط والاحكام');
             return redirect()->back()->withInput();
@@ -210,6 +212,20 @@ class HomeControllers extends Controller {
             Session::flash('error', 'هذه العضوية غير موجودة');
             return redirect()->back()->withInput();
         }
+
+        $coupons = $input['coupon'];
+        $availableCoupons = Coupon::availableCoupons();
+        $availableCoupons = reset($availableCoupons);
+        // dd($availableCoupons);
+        
+        if(!empty($coupons[0])){
+            foreach ($coupons as $coupon) {
+                if(count($availableCoupons) > 0 && !in_array($coupon, $availableCoupons)){
+                    \Session::flash('error', 'هذا الكود ('.$coupon.') غير متاح حاليا');
+                    return redirect()->back()->withInput();
+                }
+            }
+        }
         
        
         $menuObj = Order::getOne($id);
@@ -240,6 +256,19 @@ class HomeControllers extends Controller {
 
     public function postOrder() {
         $input = \Request::all();
+
+        $coupon = $input['coupon'];
+        $availableCoupons = Coupon::availableCoupons();
+        $availableCoupons = reset($availableCoupons);
+        // dd($availableCoupons);
+        
+        if(!empty($coupon)){
+            if(count($availableCoupons) > 0 && !in_array($coupon, $availableCoupons)){
+                \Session::flash('error', 'هذا الكود ('.$coupon.') غير متاح حاليا');
+                return redirect()->back()->withInput();
+            }
+        }
+
         if(!isset($input['privacy']) || empty($input['privacy'])){
             Session::flash('error','يجب الموافقة علي الشروط والاحكام');
             return redirect()->back()->withInput();
@@ -286,6 +315,7 @@ class HomeControllers extends Controller {
         $menuObj->field_id = $input['field_id'];
         $menuObj->city_id = $input['city_id'];
         $menuObj->membership_id = $input['membership_id'];
+        $menuObj->coupon = (isset($coupon) && !empty($coupon)) ? $coupon : null;
         $menuObj->sort = Order::newSortIndex();
         $menuObj->status = 1;
         $menuObj->created_at = DATE_TIME;

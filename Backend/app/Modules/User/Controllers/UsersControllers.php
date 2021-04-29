@@ -3,6 +3,7 @@
 use App\Models\User;
 use App\Models\Group;
 use App\Models\Photo;
+use App\Models\City;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
@@ -70,8 +71,9 @@ class UsersControllers extends Controller {
             return Datatables::of($data['data'])->make(true);
         }
         $data['groups'] = Group::dataList()['data'];
+        $data['cities'] = City::dataList(1)['data'];
         $data['title'] = 'المستخدمين';
-        $data['url'] = 'users';
+        $data['url'] = 'ATAdmin/users';
         return view('User.Views.index')->with('data', (object) $data);
     }
 
@@ -95,6 +97,7 @@ class UsersControllers extends Controller {
             return Redirect('404');
         }
         $data['groups'] = Group::dataList()['data'];
+        $data['cities'] = City::dataList(1)['data'];
         $data['data'] = User::getData($userObj);
         return view('User.Views.edit')->with('data', (object) $data);      
     }
@@ -163,6 +166,7 @@ class UsersControllers extends Controller {
         $groupObj->email = $input['email'];
         $groupObj->address = $input['address'];
         $groupObj->phone = $input['phone'];
+        $groupObj->city_id = $input['city_id'];
         $groupObj->brief = $input['brief'];
         $groupObj->show_details = $input['show_details'];
         $groupObj->show_images = $input['show_images'];
@@ -208,6 +212,7 @@ class UsersControllers extends Controller {
 
     public function add() {
         $data['groups'] = Group::dataList()['data'];
+        $data['cities'] = City::dataList(1)['data'];
         return view('User.Views.add')->with('data', (object) $data);
     }
 
@@ -246,6 +251,7 @@ class UsersControllers extends Controller {
         $groupObj->username = $input['username'];
         $groupObj->group_id = $input['group_id'];
         $groupObj->email = $input['email'];
+        $groupObj->city_id = $input['city_id'];
         $groupObj->address = $input['address'];
         $groupObj->phone = $input['phone'];
         $groupObj->gender = $input['gender'];

@@ -2093,9 +2093,12 @@ input[type="number"] {
 	text-align: right;
 	direction: rtl;
 }
-.owl-carousel .owl-wrapper-outer{
-	padding-left: 180px;
+@media(min-width:  1200px){
+	.owl-carousel .owl-wrapper-outer{
+		padding-left: 180px;
+	}	
 }
+
 
 
 

@@ -119,6 +119,8 @@ class WebActions extends Model{
             $text = 'التصنيفات';
         }elseif($name == 'Slider'){
             $text = 'الاسلايدر';
+        }elseif($name == 'Coupon'){
+            $text = 'كوبونات الخصم';
         }
         return [$text,$url];
     }

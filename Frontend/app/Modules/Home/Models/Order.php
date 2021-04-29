@@ -72,6 +72,7 @@ class Order extends Model{
         $dataObj->id = $source->id;
         $dataObj->order_no = $source->order_no;
         $dataObj->name = $source->name;
+        $dataObj->coupon = $source->coupon;
         $dataObj->brief = $source->brief;
         $dataObj->gender = $source->gender;
         $dataObj->phone = $source->phone;

@@ -346,6 +346,7 @@
 	.itemEvent img
 	{
 		min-height:400px;
+		width: 100%;
 	}
 	
 	.registration .addSocial .title,

@@ -190,6 +190,16 @@
                                     </select>
                                     <br>
                                 </div>
+                                <div class="col-lg-3 col-md-4 col-sm-6" data-col-index="3">
+                                    <label>المدينة:</label>
+                                    <select class="form-control" name="city_id">
+                                        <option value="0">حدد اختيارك</option>
+                                        @foreach($data->cities as $city)
+                                        <option value="{{ $city->id }}" {{ Request::get('city_id')  == $city->id ? 'selected' : '' }}>{{ $city->title }}</option>
+                                        @endforeach
+                                    </select>
+                                    <br>
+                                </div>
                             </div>
                             <div class="m-separator m-separator--md m-separator--dashed"></div>
                             <div class="row">
@@ -227,6 +237,7 @@
                     <th>البريد الالكتروني</th>
                     <th>العنوان</th>
                     <th>رقم الجوال</th>
+                    <th>المدينة</th>
                     <th>الاجراءات</th>
                 </tr>
             </thead>
@@ -239,6 +250,7 @@
                     <th>البريد الالكتروني</th>
                     <th>العنوان</th>
                     <th>رقم الجوال</th>
+                    <th>المدينة</th>
                     <th>الاجراءات</th>
                 </tr>
             </tfoot>

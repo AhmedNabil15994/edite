@@ -159,6 +159,17 @@
                     </div>
                     <div class="form-group m-form__group row" style="padding-right: 0;padding-left: 0;padding-bottom: 10px;">
                         <div class="col-lg-12">
+                            <label class="label label-danger label-pill label-inline mr-2" style="margin-bottom: 20px;">المدينة: </label>
+                            <select name="city_id" class="form-control mb-5 select2" id="kt_select2_5">
+                                <option value="">حدد اختيارك</option>
+                                <?php $__currentLoopData = $data->cities; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $city): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <option value="<?php echo e($city->id); ?>" <?php echo e(old('city_id') == $city->id ? 'selected' : ''); ?>><?php echo e($city->title); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </select>
+                        </div>
+                    </div> 
+                    <div class="form-group m-form__group row" style="padding-right: 0;padding-left: 0;padding-bottom: 10px;">
+                        <div class="col-lg-12">
                             <label class="label label-danger label-pill label-inline mr-2" style="margin-bottom: 20px;">رابط فيسبوك</label>
                             <input class="form-control mb-5 m-input" type="text" name="facebook" value="<?php echo e(old('facebook')); ?>" maxlength="" placeholder="">
                         </div>

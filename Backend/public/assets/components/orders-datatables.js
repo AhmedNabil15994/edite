@@ -125,9 +125,9 @@ var KTDatatablesAdvancedMultipleControls = function() {
 				{
 					targets: 2,
 					title: 'رقم الطلب',
-					className: 'edits',
+					className: '',
 					render: function(data, type, full, meta) {
-						return '<a class="editable" data-col="order_no" data-id="'+full.id+'">'+data+'</a>';
+						return '<a class="" data-col="order_no" data-id="'+full.id+'">'+data+'</a>';
 					},
 				},
 				{
@@ -228,6 +228,7 @@ var KTDatatablesAdvancedMultipleControls = function() {
 					width: 100,
 					orderable: false,
 					render: function(data, type, full, meta) {
+						var editButton = '';
 						var deleteButton = '';
 						var newMembButton = '';
 						var acceptButton = '';
@@ -245,8 +246,11 @@ var KTDatatablesAdvancedMultipleControls = function() {
 		                                    '<i class="m-nav__link-icon fa fa-times"></i>'+
 		                                    '<span class="m-nav__link-text">رفض الطلب</span>'+
 		                                '</a>';
+		                    editButton = '<a href="'+('/'+$('input.url').val())+'/edit/'+data+'" class="dropdown-item">'+
+		                                    '<i class="m-nav__link-icon fa fa-pencil-alt"></i>'+
+		                                    '<span class="m-nav__link-text">تعديل</span>'+
+		                                '</a>';
 						}
-
 						if(full.status == 5){
 							newMembButton = '<a href="#" class="dropdown-item newMemb" data-cols="'+full.id+'" data-image="'+full.image+'" data-identity_no="'+full.identity_no+'" data-identity_end_date="'+full.identity_end_date+'" data-identity_image="'+full.identity_image+'" >'+
 		                                    '<i class="m-nav__link-icon far fa-credit-card"></i>'+
@@ -258,6 +262,7 @@ var KTDatatablesAdvancedMultipleControls = function() {
 		                                '<i class="ki ki-bold-more-hor"></i>'+
 		                            '</button>'+
 		                            '<div class="dropdown-menu" dropdown-toggle="hover">'+
+		                                editButton+
 		                                deleteButton+
 		                                acceptButton+
 		                                refuseButton+

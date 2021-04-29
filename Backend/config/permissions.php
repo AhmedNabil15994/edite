@@ -162,6 +162,8 @@ return [
     'OrderControllers@delete' => 'delete-order',
     'OrderControllers@fastEdit' => 'edit-order',
     'OrderControllers@changeStatus' => 'edit-order',
+    'OrderControllers@edit' => 'edit-order',
+    'OrderControllers@Update' => 'edit-order',
     'OrderControllers@newMember' => 'edit-order',
 
     'UserCardControllers@index' => 'list-user-cards',
@@ -183,5 +185,15 @@ return [
     'EventControllers@uploadImage' => 'uploadImage-event',
     'EventControllers@deleteImage' => 'deleteImage-event',
 
+    'CouponControllers@index' => 'list-coupons',
+    'CouponControllers@edit' => 'edit-coupon',
+    'CouponControllers@update' => 'edit-coupon',
+    'CouponControllers@fastEdit' => 'edit-coupon',
+    'CouponControllers@add' => 'add-coupon',
+    'CouponControllers@create' => 'add-coupon',
+    'CouponControllers@delete' => 'delete-coupon',
+    'CouponControllers@arrange' => 'sort-coupon',
+    'CouponControllers@sort' => 'sort-coupon',
+    'CouponControllers@charts' => 'charts-coupon',
   
 ];

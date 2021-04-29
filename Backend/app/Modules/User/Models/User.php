@@ -15,6 +15,10 @@ class User extends Model{
         return $this->belongsTo('App\Models\Group','group_id');
     }
 
+    public function City(){
+        return $this->belongsTo('App\Models\City','city_id');
+    }
+
     public function photos(){
         return $this->morphMany('App\Models\Photo', 'imageable');
     }
@@ -33,6 +37,9 @@ class User extends Model{
         }
         if (isset($input['group_id']) && !empty($input['group_id'])) {
             $source->where('group_id',  $input['group_id']);
+        }
+        if (isset($input['city_id']) && !empty($input['city_id'])) {
+            $source->where('city_id',  $input['city_id']);
         }
         if($status != null){
             $source->where('status',1)->where('is_active',1);
@@ -99,6 +106,8 @@ class User extends Model{
         $data->youtube = $source->youtube != null ? $source->youtube : '';
         $data->instagram = $source->instagram != null ? $source->instagram : '';
         $data->show_details = $source->show_details;
+        $data->city_id = $source->city_id;
+        $data->cityText = $source->City != null ? $source->City->title : '';
         $data->username = $source->username;
         $data->session_time = $source->session_time;
         $data->lang = $source->lang;

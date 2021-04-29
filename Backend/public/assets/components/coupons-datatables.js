@@ -9,11 +9,11 @@ var KTDatatablesAdvancedMultipleControls = function() {
 			// DOM Layout settings
 			dom:'Bfrtip',
 			dom:
-				"<'row'<'col-xs-12 col-sm-6 col-md-6'l><'col-xs-12 col-sm-6 col-md-6 text-right'Bf>>" +
-				"<'row'<'col-xs-6 col-sm-6 col-md-6'i><'col-xs-6 col-sm-6 col-md-6'p>> " +
-				"<'row'<'col-sm-12 'tr>>" +
-				"<'row'<'col-xs-4 col-sm-6 col-md-6 'l><'col-xs-8 col-sm-6 col-md-6  text-right'f>>" +
-				"<'row'<'col-xs-6 col-sm-6 col-md-6 'i><'col-xs-6 col-sm-6 col-md-6 'p>>", // read more: https://datatables.net/examples/basic_init/dom.html
+				"<'row'<'col-sm-12 col-md-9'l><'col-sm-12 col-md-3 text-right'Bf>>" +
+				"<'row'<'col-sm-12 col-md-6'i><'col-sm-12 col-md-6'p>> " +
+				"<'row'<'col-sm-12'tr>>" +
+				"<'row'<'col-sm-12 col-md-9'l><'col-sm-12 col-md-3 text-right'f>>" +
+				"<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>", // read more: https://datatables.net/examples/basic_init/dom.html
 	        buttons: [
 	            {
 	                extend: 'colvis',
@@ -74,81 +74,41 @@ var KTDatatablesAdvancedMultipleControls = function() {
 			processing: true,
 			serverSide: true,
 			ajax: {
-				url: '/'+$('input.url').val(),
+				url: '/coupons',
 				type: 'GET',
 				data:function(dtParms){
-			       	dtParms.group_id = $('select[name="group_id"]').val();
+			       	dtParms.discount_type = $('select[name="discount_type"]').val();
+			       	dtParms.discount_value = $('input[name="discount_value"]').val();
+			        dtParms.valid_type = $('select[name="valid_type"]').val();
 			        dtParms.columnsDef= [
-						'id', 'username','name_ar','name_en','email','address','phone','cityText'];
+						'id', 'code','discount_typeText','discount_value','valid_typeText','valid_value'];
 			        return dtParms
 			    }
 			},
 			columns: [
 				{data: 'id'},
-				{data: 'username',},
-				{data: 'name_ar',},
-				{data: 'name_en',},
-				{data: 'email',},
-				{data: 'address',},
-				{data: 'phone',},
-				{data: 'cityText',},
+				{data: 'code',},
+				{data: 'discount_typeText',},
+				{data: 'discount_value',},
+				{data: 'valid_typeText',},
+				{data: 'valid_value',},
 				{data: 'id', responsivePriority: -1},
 			],
 			columnDefs: [
 				{
 					targets: 1,
-					title: 'اسم المستخدم',
+					title: 'الكود',
 					className: 'edits',
 					render: function(data, type, full, meta) {
-						return '<a class="editable" data-col="username" data-id="'+full.id+'">'+data+'</a>';
-					},
-				},
-				{
-					targets: 2,
-					title: 'الاسم عربي',
-					className: 'edits',
-					render: function(data, type, full, meta) {
-						return '<a class="editable" data-col="name_ar" data-id="'+full.id+'">'+data+'</a>';
+						return '<a class="editable" data-col="code" data-id="'+full.id+'">'+data+'</a>';
 					},
 				},
 				{
 					targets: 3,
-					title: 'الاسم انجليزي',
+					title: 'قيمة الخصم',
 					className: 'edits',
 					render: function(data, type, full, meta) {
-						return '<a class="editable" data-col="name_en" data-id="'+full.id+'">'+data+'</a>';
-					},
-				},
-				{
-					targets: 4,
-					title: 'البريد الالكتروني',
-					className: 'edits',
-					render: function(data, type, full, meta) {
-						return '<a class="editable" data-col="email" data-id="'+full.id+'">'+data+'</a>';
-					},
-				},
-				{
-					targets: 5,
-					title: 'العنوان',
-					className: 'edits',
-					render: function(data, type, full, meta) {
-						return '<a class="editable" data-col="address" data-id="'+full.id+'">'+data+'</a>';
-					},
-				},
-				{
-					targets: 6,
-					title: 'رقم الجوال',
-					className: 'edits',
-					render: function(data, type, full, meta) {
-						return '<a class="editable" data-col="phone" data-id="'+full.id+'">'+data+'</a>';
-					},
-				},
-				{
-					targets: 7,
-					title: 'المدينة',
-					className: 'edits selects',
-					render: function(data, type, full, meta) {
-						return '<a class="editable" data-col="city_id" data-id="'+full.id+'">'+data+'</a>';
+						return '<a class="editable" data-col="discount_value" data-id="'+full.id+'">'+data+'</a>';
 					},
 				},
 				{
@@ -158,9 +118,8 @@ var KTDatatablesAdvancedMultipleControls = function() {
 					render: function(data, type, full, meta) {
 						var editButton = '';
 						var deleteButton = '';
-						var myUrl = '/'+$('input.url').val();
 						if($('input[name="data-area"]').val() == 1){
-							editButton = '<a href="'+myUrl+'/edit/'+data+'" class="dropdown-item">'+
+							editButton = '<a href="/coupons/edit/'+data+'" class="dropdown-item">'+
 		                                    '<i class="m-nav__link-icon fa fa-pencil-alt"></i>'+
 		                                    '<span class="m-nav__link-text">تعديل</span>'+
 		                                '</a>';

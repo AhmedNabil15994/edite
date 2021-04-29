@@ -10,6 +10,7 @@ use App\Models\Membership;
 use App\Models\Variable;
 use App\Models\UserCard;
 use App\Models\WebActions;
+use App\Models\Coupon;
 use App\Helper\JawalyHelper;
 use App\Helper\MailHelper;
 use Illuminate\Http\Request;
@@ -36,6 +37,59 @@ class OrderControllers extends Controller {
         return view('Order.Views.index')->with('data',(object) $data);
     }
 
+    public function edit($id) {
+        $id = (int) $id;
+
+        $menuObj = Order::getOne($id);
+        if($menuObj == null) {
+            return Redirect('404');
+        }
+
+        $data['data'] = Order::getData($menuObj);
+        $data['fields'] = Field::dataList(1)['data'];
+        $data['cities'] = City::dataList(1)['data'];
+        $data['memberships'] = Membership::dataList(1)['data'];
+        $data['availableCoupons'] = Coupon::availableCoupons();
+        return view('Order.Views.edit')->with('data', (object) $data);      
+    }
+
+    public function update($id) {
+        $id = (int) $id;
+        $input = \Request::all();
+
+        $menuObj = Order::getOne($id);
+
+        if($menuObj == null) {
+            return Redirect('404');
+        }
+
+        $menuObj->name = $input['name'];
+        $menuObj->email = $input['email'];
+        $menuObj->phone = $input['phone'];
+        $menuObj->card_name = $input['card_name'];
+        $menuObj->gender = $input['gender'];
+        $menuObj->field_id = $input['field_id'];
+        $menuObj->city_id = $input['city_id'];
+        $menuObj->membership_id = $input['membership_id'];
+        $menuObj->brief = $input['brief'];
+        $menuObj->coupon = $input['coupon'];
+        $menuObj->status = $input['status'];
+        $menuObj->updated_at = DATE_TIME;
+        $menuObj->updated_by = USER_ID;
+        $menuObj->save();
+
+        $menuObj->Details()->update([
+            'facebook' => $input['facebook'],
+            'twitter' => $input['twitter'],
+            'instagram' => $input['instagram'],
+            'youtube' => $input['youtube'],
+            'snapchat' => $input['snapchat'],
+        ]);
+
+        WebActions::newType(2,'Order');
+        \Session::flash('success', "تنبيه! تم التعديل بنجاح");
+        return \Redirect::back()->withInput();
+    }
 
     public function softDelete(Request $request) {
         $menuObj = Order::whereIn('id',$request->data)->update(['deleted_at'=>DATE_TIME,'deleted_by'=>USER_ID]);
@@ -67,7 +121,7 @@ class OrderControllers extends Controller {
         $input = \Request::all();
         foreach ($input['data'] as $item) {
             $col = $item[1];
-            $menuObj = Order::NotDeleted()->find($item[0]);
+            $menuObj = Order::getOne($item[0]);
             if($col == 'status' && $item[2] == 2){
                 $message = 'تم الموافقة علي طلبكم وهذا رابط استكمال التسجيل : '.config('app.FRONT_URL').'complete/'.encrypt($menuObj->id);
                 JawalyHelper::sendSMS($menuObj->phone,$message);

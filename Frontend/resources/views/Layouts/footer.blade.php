@@ -45,6 +45,7 @@
 				@php 
 					$mobile = App\Models\Variable::getVar('رقم الواتس اب:');
 					$email =  App\Models\Variable::getVar('البريد الإلكتروني(للرسائل):');
+					$page = App\Models\Page::where('title','الحقوق')->first();
 				@endphp
 				<h2 class="titleFooter">اتصل بنا</h2>
 				<div class="numberStyle">
@@ -58,7 +59,7 @@
 			</div>
 		</div>
 		<center class="clearfix">
-			<p class="copyRights">جميع الحقوق محفوظة © الجمعية العربية السعودية للفنون  {{ date('Y') }}</p>
+			<p class="copyRights">{{ strip_tags($page->description) }}  {{ date('Y') }}</p>
 			<ul class="socialFooter">
 				<li><a href="{{ \App\Models\Variable::getVar('رابط الفيس بوك:') }}" target="_blank" class="fa fa-facebook"></a></li>
 				<li><a href="{{ \App\Models\Variable::getVar('رابط السناب شات:') }}" target="_blank" class="fa fa-snapchat"></a></li>

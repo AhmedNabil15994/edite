@@ -46,11 +46,11 @@ class OrderDetails extends Model{
     static function getData($source) {
         $dataObj = new \stdClass();
         $dataObj->id = $source->id;
-        $dataObj->facebook = $source->facebook;
-        $dataObj->twitter = $source->twitter;
-        $dataObj->youtube = $source->youtube;
-        $dataObj->snapchat = $source->snapchat;
-        $dataObj->instagram = $source->instagram;
+        $dataObj->facebook = $source->facebook != null ? $source->facebook : '';
+        $dataObj->twitter = $source->twitter != null ? $source->twitter : '';
+        $dataObj->youtube = $source->youtube != null ? $source->youtube : '';
+        $dataObj->snapchat = $source->snapchat != null ? $source->snapchat : '';
+        $dataObj->instagram = $source->instagram != null ? $source->instagram : '';
         $dataObj->order_id = $source->order_id;
         $dataObj->identity_no = $source->identity_no;
         $dataObj->identity_end_date = $source->identity_end_date;

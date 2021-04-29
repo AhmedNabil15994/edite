@@ -27,8 +27,10 @@ class Order extends Model{
     }
 
     static function getOne($id) {
-        return self::NotDeleted()
-            ->find($id);
+        if(!IS_ADMIN){
+            return self::NotDeleted()->where('city_id',User::getOne(USER_ID)->city_id)->find($id);
+        }
+        return self::NotDeleted()->find($id);
     }
 
     static function dataList($status=null) {        
@@ -49,6 +51,9 @@ class Order extends Model{
             });
         if($status != null){
             $source->where('status',$status);
+        }
+        if(!IS_ADMIN){
+            $source->where('city_id',User::getOne(USER_ID)->city_id);
         }
         $source->orderBy('id','DESC');
         return self::getObj($source);
@@ -73,6 +78,7 @@ class Order extends Model{
         $dataObj->id = $source->id;
         $dataObj->order_no = $source->order_no;
         $dataObj->name = $source->name;
+        $dataObj->coupon = $source->coupon;
         $dataObj->brief = $source->brief != null ? $source->brief : '';
         $dataObj->gender = $source->gender;
         $dataObj->phone = $source->phone;

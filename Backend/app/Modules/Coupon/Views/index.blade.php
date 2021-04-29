@@ -1,12 +1,13 @@
-<?php $__env->startSection('title','الاسلايدر'); ?>
+{{-- Extends layout --}}
+@extends('Layouts.master')
+@section('title','كوبونات الخصم')
 
-<?php $__env->startSection('styles'); ?>
-<link rel="stylesheet" type="text/css" href="<?php echo e(asset('/assets/css/default-skin.css')); ?>">
-<link rel="stylesheet" type="text/css" href="<?php echo e(asset('/assets/css/photoswipe.css')); ?>">
-<?php $__env->stopSection(); ?>
+{{-- Content --}}
+@section('sub-header')
 
+@endsection
 
-<?php $__env->startSection('content'); ?>
+@section('content')
 <div class="py-2 py-lg-6 subheader-transparent" id="kt_subheader">
     <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
         <!--begin::Info-->
@@ -14,15 +15,15 @@
             <!--begin::Page Heading-->
             <div class="d-flex align-items-baseline flex-wrap mr-5">
                 <!--begin::Page Title-->
-                <h3 class="text-dark font-weight-bold my-1 mr-5 m-subheader__title--separator">الاسلايدر</h3>
+                <h3 class="text-dark font-weight-bold my-1 mr-5 m-subheader__title--separator">كوبونات الخصم</h3>
                 <!--end::Page Title-->
                 <!--begin::Breadcrumb-->
                 <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
                     <li class="breadcrumb-item">
-                        <a href="<?php echo e(URL::to('/')); ?>" class="text-muted"><i class="m-nav__link-icon la la-home"></i></a>
+                        <a href="{{ URL::to('/') }}" class="text-muted"><i class="m-nav__link-icon la la-home"></i></a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="<?php echo e(URL::to('/sliders')); ?>" class="text-muted">الاسلايدر</a>
+                        <a href="{{ URL::to('/coupons') }}" class="text-muted">كوبونات الخصم</a>
                     </li>
                 </ul>
                 <!--end::Breadcrumb-->
@@ -38,27 +39,27 @@
                     <i class="ki ki-bold-more-hor"></i>
                 </button>
                 <div class="dropdown-menu" dropdown-toggle="hover">
-                    <?php if(\Helper::checkRules('add-slider')): ?>
-                    <a href="<?php echo e(URL::to('/sliders/add')); ?>" class="dropdown-item">
+                    @if(\Helper::checkRules('add-coupon'))
+                    <a href="{{ URL::to('/coupons/add') }}" class="dropdown-item">
                         <i class="m-nav__link-icon fa fa-plus"></i>
                         <span class="m-nav__link-text">اضافة</span>
                     </a>
-                    <?php endif; ?>
-                    <?php if(\Helper::checkRules('sort-slider')): ?>
-                    <a href="<?php echo e(URL::to('/sliders/arrange')); ?>" class="dropdown-item">
+                    @endif
+                    @if(\Helper::checkRules('sort-coupon'))
+                    <a href="{{ URL::to('/coupons/arrange') }}" class="dropdown-item">
                         <i class="m-nav__link-icon fa fa-sort-numeric-up"></i>
                         <span class="m-nav__link-text">ترتيب</span>
                     </a>
-                    <?php endif; ?>
-                    <?php if(\Helper::checkRules('charts-slider')): ?>
-                    <a href="<?php echo e(URL::to('/sliders/charts')); ?>" class="dropdown-item">
+                    @endif
+                    @if(\Helper::checkRules('charts-coupon'))
+                    <a href="{{ URL::to('/coupons/charts') }}" class="dropdown-item">
                         <i class="m-nav__link-icon flaticon-graph"></i>
                         <span class="m-nav__link-text">الاحصائيات</span>
                     </a>
-                    <?php endif; ?>
+                    @endif
                     <div class="dropdown-divider"></div>
                     <div href="#" class="dropdown-item">
-                        <a href="<?php echo e(URL::to('/logout')); ?>" class="btn btn-outline-danger m-btn m-btn--pill m-btn--wide btn-sm">تسجيل الخروج</a>
+                        <a href="{{ URL::to('/logout') }}" class="btn btn-outline-danger m-btn m-btn--pill m-btn--wide btn-sm">تسجيل الخروج</a>
                     </div>
                 </div>
             </div>
@@ -72,16 +73,16 @@
     <div class="card-header">
         <div class="card-title">
             <span class="card-icon">
-                <i class="menu-icon flaticon-home-2"></i>
+                <i class="menu-icon fa fa-tag"></i>
             </span>
-            <h3 class="card-label">الاسلايدر</h3>
+            <h3 class="card-label">كوبونات الخصم</h3>
         </div>
         <div class="card-toolbar">
-            <?php if(\Helper::checkRules('edit-slider')): ?>
+            @if(\Helper::checkRules('edit-coupon'))
             <a href="#" class="btn btn-outline-success quickEdit m-btn m-btn--icon m-btn--icon-only m-btn--custom m-btn--pill " data-toggle="tooltip" data-placement="top" data-original-title="تعديل سريع">
                 <i class="la la-edit"></i>
             </a>
-            <?php endif; ?>
+            @endif
             <a href="#" class="btn btn-outline-danger search-mode m-btn m-btn--icon m-btn--icon-only m-btn--custom m-btn--pill " data-toggle="tooltip" data-placement="top" data-original-title="معلومات عن البحث المتقدم">
                 <i class="flaticon-questions-circular-button"></i>
             </a>
@@ -140,17 +141,40 @@
                 </div>
                 <div id="collapseTwo6" class="collapse" data-parent="#accordionExample6" style="">
                     <div class="card-body">
-                        <form class="m-form m-form--fit m--margin-bottom-20" method="get" action="<?php echo e(URL::current()); ?>">
-                            
+                        <form class="m-form m-form--fit m--margin-bottom-20" method="get" action="{{ URL::current() }}">
+                            {{-- @csrf --}}
                             <div class="row">
                                 <div class="col-lg-3 col-md-4 col-sm-6">
                                     <label>ID:</label>
-                                    <input type="text" class="form-control m-input" data-col-index="0" name="id" value="<?php echo e(Request::get('id')); ?>">
+                                    <input type="text" class="form-control m-input" name="id" value="{{ Request::get('id') }}" data-col-index="0">
                                     <br>
                                 </div>  
                                 <div class="col-lg-3 col-md-4 col-sm-6">
-                                    <label>العنوان عربي:</label>
-                                    <input type="text" class="form-control m-input" data-col-index="2" name="title" value="<?php echo e(Request::get('title')); ?>">
+                                    <label>الكود:</label>
+                                    <input type="text" class="form-control m-input" name="code" value="{{ Request::get('code') }}" data-col-index="1">
+                                    <br>
+                                </div>
+                                <div class="col-lg-3 col-md-4 col-sm-6">
+                                    <label>نوع الخصم:</label>
+                                    <select name="discount_type" class="form-control m-input">
+                                        <option value="">حدد اختيارك</option>
+                                        <option value="1" {{ Request::get('discount_type') == 1 ? 'selected' : '' }}>قيمة محددة</option>
+                                        <option value="2" {{ Request::get('discount_type') == 2 ? 'selected' : '' }}>نسبة مئوية</option>
+                                    </select>
+                                    <br>
+                                </div>
+                                <div class="col-lg-3 col-md-4 col-sm-6">
+                                    <label>قيمة الخصم:</label>
+                                    <input type="text" class="form-control m-input" name="discount_value" value="{{ Request::get('discount_value') }}">
+                                    <br>
+                                </div>
+                                <div class="col-lg-3 col-md-4 col-sm-6">
+                                    <label>نوع المدة المتاحة:</label>
+                                    <select name="valid_type" class="form-control m-input">
+                                        <option value="">حدد اختيارك</option>
+                                        <option value="1" {{ Request::get('valid_type') == 1 ? 'selected' : '' }}>عدد مرات استخدام</option>
+                                        <option value="2" {{ Request::get('valid_type') == 2 ? 'selected' : '' }}>لتاريخ معين</option>
+                                    </select>
                                     <br>
                                 </div>
                             </div>
@@ -164,7 +188,7 @@
                                         </span>
                                     </button>
                                     &nbsp;&nbsp;
-                                    <a href="<?php echo e(URL::to('/sliders')); ?>" class="btn btn-secondary m-btn m-btn--icon" id="m_reset">
+                                    <a href="{{ URL::to('/coupons') }}" class="btn btn-secondary m-btn m-btn--icon" id="m_reset">
                                         <span>
                                             <i class="la la-close"></i>
                                             <span>الغاء</span>
@@ -177,23 +201,29 @@
                 </div>
             </div>
         </div>
-        <input type="hidden" name="data-area" value="<?php echo e(\Helper::checkRules('edit-slider')); ?>">
-        <input type="hidden" name="data-cols" value="<?php echo e(\Helper::checkRules('delete-slider')); ?>">
+        <input type="hidden" name="data-area" value="{{ \Helper::checkRules('edit-coupon') }}">
+        <input type="hidden" name="data-cols" value="{{ \Helper::checkRules('delete-coupon') }}">
         <!--begin: Datatable-->
         <table class="table table-separate  table-hover table-bordered table-head-custom table-foot-custom table-checkable" id="kt_datatable">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>الصورة</th>
-                    <th>العنوان عربي</th>
+                    <th>الكود</th>
+                    <th>نوع الخصم</th>
+                    <th>قيمة الخصم</th>
+                    <th>المدة المتاحة</th>
+                    <th>فعال حتي</th>
                     <th>الاجراءات</th>
                 </tr>
             </thead>
             <tfoot>
                 <tr>
                     <th>ID</th>
-                    <th>الصورة</th>
-                    <th>العنوان عربي</th>
+                    <th>الكود</th>
+                    <th>نوع الخصم</th>
+                    <th>قيمة الخصم</th>
+                    <th>المدة المتاحة</th>
+                    <th>فعال حتي</th>
                     <th>الاجراءات</th>
                 </tr>
             </tfoot>
@@ -202,19 +232,13 @@
     </div>
 </div>
 <!--end::Card-->
-<?php $__env->stopSection(); ?>
+@endsection
 
-<?php $__env->startSection('modals'); ?>
-<?php echo $__env->make('Partials.search_modal', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-<?php echo $__env->make('Partials.photoswipe_modal', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-<?php $__env->stopSection(); ?>
+@section('modals')
+@include('Partials.search_modal')
+@endsection
 
-
-<?php $__env->startSection('scripts'); ?>
-<script src="<?php echo e(asset('/assets/components/sliders-datatables.js')); ?>"></script>           
-<script src="<?php echo e(asset('/assets/js/photoswipe.min.js')); ?>"></script>
-<script src="<?php echo e(asset('/assets/js/photoswipe-ui-default.min.js')); ?>"></script>
-<script src="<?php echo e(asset('/assets/components/myPhotoSwipe.js')); ?>"></script>       
-<?php $__env->stopSection(); ?>
-
-<?php echo $__env->make('Layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/Server/Projects/Edite/Backend/app/Modules/Slider/Views/index.blade.php ENDPATH**/ ?>
+{{-- Scripts Section --}}
+@section('scripts')
+<script src="{{ asset('/assets/components/coupons-datatables.js')}}"></script>           
+@endsection
