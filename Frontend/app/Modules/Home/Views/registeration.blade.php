@@ -102,7 +102,7 @@
 								<textarea type="text" name="brief" placeholder="السيرة الذاتية المختصرة:">{{ isset($data->data->brief) ? $data->data->brief : old('brief') }}</textarea>
 							</div>
 							<div class="col-md-12">
-								<input type="text" placeholder="كوبون الخصم:" name="coupon" value="{{ isset($data->data->coupon) ? $data->data->coupon  : old('coupon') }}" />
+								<input type="text" placeholder="كوبون الخصم : لاصحاب الهمم - أبناء الشهداء - اسر الاعضاء يرجي استخدام الكود SASCA1" name="coupon" value="{{ isset($data->data->coupon) ? $data->data->coupon  : old('coupon') }}" />
 							</div>
 							<div class="col-md-12">
 								<div class="addSocial clearfix">

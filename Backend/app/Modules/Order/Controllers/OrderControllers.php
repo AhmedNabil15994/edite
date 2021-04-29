@@ -123,7 +123,8 @@ class OrderControllers extends Controller {
             $col = $item[1];
             $menuObj = Order::getOne($item[0]);
             if($col == 'status' && $item[2] == 2){
-                $message = 'تم الموافقة علي طلبكم وهذا رابط استكمال التسجيل : '.config('app.FRONT_URL').'complete/'.encrypt($menuObj->id);
+                $key = base64_encode('order-'.$menuObj->id);
+                $message = 'تم الموافقة علي طلبكم وهذا رابط استكمال التسجيل : '.config('app.FRONT_URL').'complete/'.$key;
                 JawalyHelper::sendSMS($menuObj->phone,$message);
             }
             $menuObj->$col = $item[2];
@@ -147,7 +148,8 @@ class OrderControllers extends Controller {
         }
 
         if($status == 2){
-            $message = 'تم الموافقة علي طلبكم وهذا رابط استكمال التسجيل : '.config('app.FRONT_URL').'complete/'.encrypt($menuObj->id);
+            $key = base64_encode('order-'.$menuObj->id);
+            $message = 'تم الموافقة علي طلبكم وهذا رابط استكمال التسجيل : '.config('app.FRONT_URL').'complete/'.$key;
             JawalyHelper::sendSMS($menuObj->phone,$message);
         }
 

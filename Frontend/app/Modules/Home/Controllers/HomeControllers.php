@@ -101,7 +101,7 @@ class HomeControllers extends Controller {
     {   
         $data['memberships'] = Membership::dataList(1)['data'];
         $data['pages'] = Page::dataList(1,[1])['data'];
-        $data['events'] = Event::dataList(1,null,3)['data'];
+        $data['events'] = Event::dataList(1,null)['data'];
         $data['categories'] = Category::dataList(1)['data'];
         $data['sliders'] = Slider::dataList(1)['data'];
         return view('Home.Views.index')->with('data',(object) $data);
@@ -153,7 +153,8 @@ class HomeControllers extends Controller {
     }
 
     public function registerationCheck($id){
-        $id = decrypt($id);
+        $key = base64_decode($id);
+        $id = str_replace('order-', '', $key);
         $id = (int) $id;
         $orderObj = Order::getOne($id);
         if($orderObj == null){
@@ -175,7 +176,8 @@ class HomeControllers extends Controller {
 
     public function postRegisterationCheck($id) {
         $input = \Request::all();
-        $id = decrypt($id);
+        $key = base64_decode($id);
+        $id = str_replace('order-', '', $key);
         $id = (int) $id;
 
         if(!isset($input['privacy']) || empty($input['privacy'])){
@@ -342,7 +344,8 @@ class HomeControllers extends Controller {
     }
 
     public function complete($id){
-        $id = decrypt($id);
+        $key = base64_decode($id);
+        $id = str_replace('order-', '', $key);
         $id = (int) $id;
         $orderObj = Order::getOne($id);
         if($orderObj == null){
@@ -360,7 +363,8 @@ class HomeControllers extends Controller {
     }
 
     public function postComplete($id,Request $request){
-        $id = decrypt($id);
+        $key = base64_decode($id);
+        $id = str_replace('order-', '', $key);
         $id = (int) $id;
         $orderObj = Order::getOne($id);
         if($orderObj == null){
@@ -413,11 +417,12 @@ class HomeControllers extends Controller {
         }
         $orderObj->status = 4;
         $orderObj->save();
-        return redirect()->to('/payment/'.encrypt($id));
+        return redirect()->to('/payment/'.base64_encode('order-'.$id));
     }
 
     public function payment($id){
-        $id = decrypt($id);
+        $key = base64_decode($id);
+        $id = str_replace('order-', '', $key);
         $id = (int) $id;
         Session::put('newOrderId',$id);
         $orderObj = Order::getOne($id);
@@ -466,7 +471,7 @@ class HomeControllers extends Controller {
     }
 
     public function paymentFailed(){
-        $dataObj['id'] = encrypt(Session::get('newOrderId'));
+        $dataObj['id'] = base64_encode('order-'.Session::get('newOrderId'));
         return view('Home.Views.paymentFailed')->with('data',(object) $dataObj);
     }
 
@@ -488,7 +493,7 @@ class HomeControllers extends Controller {
         $orderObj = Order::getOne($id);
         $orderObj->status = 5;
         $orderObj->save();
-        $dataObj['id'] = encrypt(Session::get('newOrderId'));
+        $dataObj['id'] = base64_encode('order-'.Session::get('newOrderId'));
         $dataObj['price'] = $orderObj->Membership->price.'.00';
         Session::forget('newOrderId');
         return view('Home.Views.paymentSuccess')->with('data',(object) $dataObj);
