@@ -181,12 +181,12 @@ class OrderControllers extends Controller {
         $menuObj->created_by = USER_ID;
         $menuObj->save();
 
-        $message = 'تم الموافقة علي طلبكم رقم '.$orderObj->order_no.'<br> وتم انشاء العضوية بنجاح. عضوية رقم : '.$menuObj->code.'<br> ورقم الشحنة هو :'.$input['deliver_no'];
+        $message = 'تم الموافقة علي طلبكم رقم '.$orderObj->order_no.'\r\n وتم انشاء العضوية بنجاح. عضوية رقم : '.$menuObj->code.'\r\n ورقم الشحنة هو :'.$input['deliver_no'];
         JawalyHelper::sendSMS($orderObj->phone,$message);
         $emailData = [
             'firstName' => $orderObj->name,
             'subject' => 'عضوية '.Variable::getVar('العنوان عربي'),
-            'content' => $message,
+            'content' => str_replace('\r\n', '<br>', $message),
             'to' => $orderObj->email,
         ];
         MailHelper::prepareEmail($emailData);
