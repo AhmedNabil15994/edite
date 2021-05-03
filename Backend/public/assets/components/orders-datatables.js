@@ -68,7 +68,7 @@ var KTDatatablesAdvancedMultipleControls = function() {
 	                }
 				}
 			},
-			responsive: true,
+			responsive: false,
 			searchDelay: 500,
 			processing: true,
 			serverSide: true,
@@ -251,12 +251,12 @@ var KTDatatablesAdvancedMultipleControls = function() {
 		                                    '<span class="m-nav__link-text">تعديل</span>'+
 		                                '</a>';
 						}
-						if(full.status == 5){
-							newMembButton = '<a href="#" class="dropdown-item newMemb" data-cols="'+full.id+'" data-image="'+full.image+'" data-identity_no="'+full.identity_no+'" data-identity_end_date="'+full.identity_end_date+'" data-identity_image="'+full.identity_image+'" >'+
-		                                    '<i class="m-nav__link-icon far fa-credit-card"></i>'+
-		                                    '<span class="m-nav__link-text">انشاء عضوية جديدة</span>'+
-		                                '</a>';
-						}
+						// if(full.status == 5){
+						// 	newMembButton = '<a href="#" class="dropdown-item newMemb" data-cols="'+full.id+'" data-image="'+full.image+'" data-identity_no="'+full.identity_no+'" data-identity_end_date="'+full.identity_end_date+'" data-identity_image="'+full.identity_image+'" >'+
+		    //                                 '<i class="m-nav__link-icon far fa-credit-card"></i>'+
+		    //                                 '<span class="m-nav__link-text">انشاء عضوية جديدة</span>'+
+		    //                             '</a>';
+						// }
 						return '<div class="main-menu dropdown dropdown-inline">'+
 		                            '<button type="button" class="btn btn-light-primary btn-icon btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'+
 		                                '<i class="ki ki-bold-more-hor"></i>'+
@@ -413,50 +413,5 @@ jQuery(document).ready(function() {
 	    }
 	});
 	
-	$(document).on('click','.newMemb',function(e){
-		e.preventDefault();
-		e.stopPropagation();
-		var id = $(this).data('cols');
-		var image = $(this).data('image');
-		var identity_no = $(this).data('identity_no');
-		var identity_end_date = $(this).data('identity_end_date');
-		var identity_image = $(this).data('identity_image');
-		$('#newMemberModal').modal('toggle');
-		$('#newMemberModal img.image').attr('src',image);
-		$('#newMemberModal input.identity_no').val(identity_no);
-		$('#newMemberModal input.identity_end_date').val(identity_end_date);
-		$('#newMemberModal img.identity_image').attr('src',identity_image);
-		$('#newMemberModal .btn-success').data('cols',id);
-	});
-
-	$('#newMemberModal .btn-success').on('click',function(e){
-		e.preventDefault();
-		e.stopPropagation();
-		var id = $(this).data('cols');
-		var deliver_no = $('#newMemberModal input.deliver_no').val();
-		if(deliver_no){
-			$.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
-	        $.ajax({
-	            type: 'POST',
-	            url: myURL+'/newMember',
-	            data:{
-	                '_token': $('meta[name="csrf-token"]').attr('content'),
-	                'id': id,
-	                'deliver_no': deliver_no,
-	            },
-	            success:function(data){
-	                if(data.status.status == 1){
-	                    successNotification(data.status.message);
-	                    setTimeout(function(){
-	                    	$('#newMemberModal').modal('hide');
-	                    	location.reload();
-	                    },2500)
-	                }else{
-	                    errorNotification(data.status.message);
-	                }
-	            },
-	        });
-		}
-	})
 
 });

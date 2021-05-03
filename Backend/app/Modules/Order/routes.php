@@ -11,7 +11,6 @@ Route::group(['prefix' => '/orders'] , function () {
     Route::get('/delete/{id}', 'OrderControllers@delete');
     Route::get('/charts', 'OrderControllers@charts');
     Route::post('/changeStatus/{status}', 'OrderControllers@changeStatus');
-    Route::post('/newMember', 'OrderControllers@newMember');
     Route::get('/edit/{id}', 'OrderControllers@edit');
     Route::post('/update/{id}', 'OrderControllers@update');
 });

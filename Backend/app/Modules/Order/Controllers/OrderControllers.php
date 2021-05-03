@@ -29,7 +29,7 @@ class OrderControllers extends Controller {
         }
         $data['title'] = 'الطلبات';
         $data['name'] = 'order';
-        $data['url'] = 'orders';
+        $data['url'] = 'ATAdmin/orders';
         $data['categories'] = [];
         $data['fields'] = Field::dataList(1)['data'];
         $data['cities'] = City::dataList(1)['data'];
@@ -157,46 +157,6 @@ class OrderControllers extends Controller {
         $menuObj->save();
         \Session::flash('success','تم التعديل بنجاح');
         return redirect()->back();
-    }
-
-    public function newMember(){
-        $input = \Request::all();
-        $id = $input['id'];
-        $deliver_no = $input['deliver_no'];
-        $orderObj = Order::getOne($id);
-            
-        $start_date = now()->format('Y-m-d');
-        $end_date = date("Y-m-d", strtotime(now()->format('Y-m-d'). " + 1 year"));
-        $menuObj = UserCard::NotDeleted()->where('deliver_no',$deliver_no)->where('order_id',$id)->first();
-        if(!$menuObj){
-            $menuObj = new UserCard;
-            $menuObj->code = UserCard::getNewCode();
-        }
-        $menuObj->order_id = $orderObj->id;
-        $menuObj->membership_id = $orderObj->membership_id;
-        $menuObj->deliver_no = $input['deliver_no'];
-        $menuObj->start_date = $start_date;
-        $menuObj->end_date = $end_date;
-        $menuObj->status = 1;
-        $menuObj->sort = UserCard::newSortIndex();
-        $menuObj->created_at = DATE_TIME;
-        $menuObj->created_by = USER_ID;
-        $menuObj->save();
-
-        $message = 'تم الموافقة علي طلبكم رقم '.$orderObj->order_no.'\r\n وتم انشاء العضوية بنجاح. عضوية رقم : '.$menuObj->code.'\r\n ورقم الشحنة هو :'.$input['deliver_no'];
-        JawalyHelper::sendSMS($orderObj->phone,$message);
-        $emailData = [
-            'firstName' => $orderObj->name,
-            'subject' => 'عضوية '.Variable::getVar('العنوان عربي'),
-            'content' => str_replace('\r\n', '<br>', $message),
-            'to' => $orderObj->email,
-        ];
-        MailHelper::prepareEmail($emailData);
-        $orderObj->status = 6;
-        $orderObj->updated_at = DATE_TIME;
-        $orderObj->updated_by = USER_ID;
-        $orderObj->save();
-        return \TraitsFunc::SuccessResponse('تم انشاء العضوية بنجاح');
     }
 
     public function charts() {

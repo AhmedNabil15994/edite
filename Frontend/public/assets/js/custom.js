@@ -55,7 +55,7 @@ $(function(){
 	      itemsDesktop : [1200,7], //5 items between 1000px and 901px
 	      itemsDesktopSmall : [991,6], // betweem 900px and 601px
 	      itemsTablet: [768,3], //2 items between 600 and 0
-	      itemsMobile : [479,1],// itemsMobile disabled - inherit from itemsTablet option
+	      itemsMobile : [479,2],// itemsMobile disabled - inherit from itemsTablet option
 	      slideSpeed : 500,
 	      paginationSpeed : 400,
 	      pagination:false,

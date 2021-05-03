@@ -454,6 +454,7 @@ class HomeControllers extends Controller {
             Session::flash('error', 'هذا الطلب قيد الملاحظة');
             return redirect()->to('/');
         }
+
         $data['price'] = $orderObj->Membership->price.'.00';
         $responseObj = \PaymentHelper::getPaymentInfo($data);
         $dataObj['response'] = $responseObj;
@@ -493,6 +494,25 @@ class HomeControllers extends Controller {
         $orderObj = Order::getOne($id);
         $orderObj->status = 5;
         $orderObj->save();
+
+        $start_date = now()->format('Y-m-d');
+        $end_date = date("Y-m-d", strtotime(now()->format('Y-m-d'). " + 1 year"));
+        $menuObj = UserCard::NotDeleted()->where('order_id',$id)->first();
+        if(!$menuObj){
+            $menuObj = new UserCard;
+            $menuObj->code = UserCard::getNewCode();
+        }
+        $menuObj->order_id = $orderObj->id;
+        $menuObj->membership_id = $orderObj->membership_id;
+        $menuObj->deliver_no = null;
+        $menuObj->start_date = $start_date;
+        $menuObj->end_date = $end_date;
+        $menuObj->status = 2;
+        $menuObj->sort = UserCard::newSortIndex();
+        $menuObj->created_at = DATE_TIME;
+        $menuObj->created_by = 1;
+        $menuObj->save();
+        
         $dataObj['id'] = base64_encode('order-'.Session::get('newOrderId'));
         $dataObj['price'] = $orderObj->Membership->price.'.00';
         Session::forget('newOrderId');

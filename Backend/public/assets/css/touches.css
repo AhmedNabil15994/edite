@@ -12,6 +12,12 @@ body,html,.tooltip{
 p.locations{
 	cursor: pointer;
 }
+@media(max-width: 1200px){
+	#kt_datatable_wrapper .row .col-sm-12{
+	    overflow-x: scroll !important;
+	}
+}
+
 .forms input[type="color"]{
 	padding: 5px !important
 }

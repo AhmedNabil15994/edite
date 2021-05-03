@@ -162,14 +162,15 @@ return [
     'OrderControllers@delete' => 'delete-order',
     'OrderControllers@fastEdit' => 'edit-order',
     'OrderControllers@changeStatus' => 'edit-order',
+    'OrderControllers@status' => 'edit-order',
     'OrderControllers@edit' => 'edit-order',
     'OrderControllers@Update' => 'edit-order',
-    'OrderControllers@newMember' => 'edit-order',
 
     'UserCardControllers@index' => 'list-user-cards',
     'UserCardControllers@fastEdit' => 'edit-user-card',
     'UserCardControllers@delete' => 'delete-user-card',
     'UserCardControllers@charts' => 'charts-user-card',
+    'UserCardControllers@newMember' => 'edit-user-card',
 
 
     'EventControllers@index' => 'list-events',

@@ -84,7 +84,7 @@ class UserCard extends Model{
         $detailsObj = OrderDetails::getData($source->Order->Details);
         $data->id = $source->id;
         $data->order_id = $source->order_id;
-        $data->deliver_no = $source->deliver_no;
+        $data->deliver_no = $source->deliver_no != null ? $source->deliver_no : '';
         $data->card_name = $source->order_id != null ? $source->Order->card_name : '';
         $data->identity_no = $detailsObj != null ? $detailsObj->identity_no : '';
         $data->identity_end_date = $detailsObj != null ? $detailsObj->identity_end_date : '';
@@ -112,6 +112,8 @@ class UserCard extends Model{
             $text =  'مسودة';
         }elseif ($status == 1) {
             $text = 'مفعلة';
+        }elseif ($status == 2) {
+            $text = 'لم يتم التصدير';
         }
         return $text;
     }

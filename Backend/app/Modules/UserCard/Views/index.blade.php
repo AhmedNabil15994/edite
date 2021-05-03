@@ -263,6 +263,7 @@
 
 @section('modals')
 @include('Partials.search_modal')
+@include('Partials.newMemberModal')
 @endsection
 
 {{-- Scripts Section --}}

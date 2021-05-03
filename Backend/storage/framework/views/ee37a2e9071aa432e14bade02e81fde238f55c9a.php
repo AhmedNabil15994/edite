@@ -1,13 +1,11 @@
-{{-- Extends layout --}}
-@extends('Layouts.master')
-@section('title',$data->title)
+<?php $__env->startSection('title','العضويات'); ?>
 
-{{-- Content --}}
-@section('sub-header')
 
-@endsection
+<?php $__env->startSection('sub-header'); ?>
 
-@section('content')
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
 <div class="py-2 py-lg-6 subheader-transparent" id="kt_subheader">
     <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
         <!--begin::Info-->
@@ -15,15 +13,15 @@
             <!--begin::Page Heading-->
             <div class="d-flex align-items-baseline flex-wrap mr-5">
                 <!--begin::Page Title-->
-                <h3 class="text-dark font-weight-bold my-1 mr-5 m-subheader__title--separator">{{ $data->title }}</h3>
+                <h3 class="text-dark font-weight-bold my-1 mr-5 m-subheader__title--separator">العضويات</h3>
                 <!--end::Page Title-->
                 <!--begin::Breadcrumb-->
                 <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
                     <li class="breadcrumb-item">
-                        <a href="{{ URL::to('/') }}" class="text-muted"><i class="m-nav__link-icon la la-home"></i></a>
+                        <a href="<?php echo e(URL::to('/')); ?>" class="text-muted"><i class="m-nav__link-icon la la-home"></i></a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{ URL::to('/'.$data->url) }}" class="text-muted">{{ $data->title }}</a>
+                        <a href="<?php echo e(URL::to('/userCards')); ?>" class="text-muted">العضويات</a>
                     </li>
                 </ul>
                 <!--end::Breadcrumb-->
@@ -39,15 +37,15 @@
                     <i class="ki ki-bold-more-hor"></i>
                 </button>
                 <div class="dropdown-menu" dropdown-toggle="hover">
-                    @if(\Helper::checkRules('charts-'.$data->name))
-                    <a href="{{ URL::to('/'.$data->url.'/charts') }}" class="dropdown-item">
+                    <?php if(\Helper::checkRules('charts-user-card')): ?>
+                    <a href="<?php echo e(URL::to('/userCards/charts')); ?>" class="dropdown-item">
                         <i class="m-nav__link-icon flaticon-graph"></i>
                         <span class="m-nav__link-text">الاحصائيات</span>
                     </a>
-                    @endif
+                    <?php endif; ?>
                     <div class="dropdown-divider"></div>
                     <div href="#" class="dropdown-item">
-                        <a href="{{ URL::to('/logout') }}" class="btn btn-outline-danger m-btn m-btn--pill m-btn--wide btn-sm">تسجيل الخروج</a>
+                        <a href="<?php echo e(URL::to('/logout')); ?>" class="btn btn-outline-danger m-btn m-btn--pill m-btn--wide btn-sm">تسجيل الخروج</a>
                     </div>
                 </div>
             </div>
@@ -61,16 +59,16 @@
     <div class="card-header">
         <div class="card-title">
             <span class="card-icon">
-                <i class="menu-icon flaticon2-rectangular"></i>
+                <i class="menu-icon far fa-credit-card"></i>
             </span>
-            <h3 class="card-label">{{ $data->title }}</h3>
+            <h3 class="card-label">العضويات</h3>
         </div>
         <div class="card-toolbar">
-            @if(\Helper::checkRules('edit-'.$data->name))
+            <?php if(\Helper::checkRules('edit-user-card')): ?>
             <a href="#" class="btn btn-outline-success quickEdit m-btn m-btn--icon m-btn--icon-only m-btn--custom m-btn--pill " data-toggle="tooltip" data-placement="top" data-original-title="تعديل سريع">
                 <i class="la la-edit"></i>
             </a>
-            @endif
+            <?php endif; ?>
             <a href="#" class="btn btn-outline-danger search-mode m-btn m-btn--icon m-btn--icon-only m-btn--custom m-btn--pill " data-toggle="tooltip" data-placement="top" data-original-title="معلومات عن البحث المتقدم">
                 <i class="flaticon-questions-circular-button"></i>
             </a>
@@ -129,95 +127,68 @@
                 </div>
                 <div id="collapseTwo6" class="collapse" data-parent="#accordionExample6" style="">
                     <div class="card-body">
-                        <form class="m-form m-form--fit m--margin-bottom-20" method="get" action="{{ URL::current() }}">
-                            {{-- @csrf --}}
+                        <form class="m-form m-form--fit m--margin-bottom-20" method="get" action="<?php echo e(URL::current()); ?>">
+                            
                             <div class="row">
                                 <div class="col-lg-3 col-md-4 col-sm-6">
                                     <label>ID:</label>
-                                    <input type="text" class="form-control m-input" data-col-index="0" name="id" value="{{ Request::get('id') }}">
+                                    <input type="text" class="form-control m-input" name="id" value="<?php echo e(Request::get('id')); ?>" data-col-index="0">
                                     <br>
                                 </div>  
                                 <div class="col-lg-3 col-md-4 col-sm-6">
-                                    <label>الاسم:</label>
-                                    <input type="text" class="form-control m-input" data-col-index="3" name="name" value="{{ Request::get('name') }}">
+                                    <label>الكود:</label>
+                                    <input type="text" class="form-control m-input" name="code" value="<?php echo e(Request::get('code')); ?>" data-col-index="1">
                                     <br>
                                 </div>
                                 <div class="col-lg-3 col-md-4 col-sm-6">
-                                    <label>البريد الالكتروني:</label>
-                                    <input type="text" class="form-control m-input" data-col-index="4" name="email" value="{{ Request::get('email') }}">
+                                    <label>رقم الهوية:</label>
+                                    <input type="text" class="form-control m-input" name="indentity_no" value="<?php echo e(Request::get('indentity_no')); ?>" data-col-index="4">
                                     <br>
-                                </div>
+                                </div>  
                                 <div class="col-lg-3 col-md-4 col-sm-6">
-                                    <label>رقم الجوال:</label>
-                                    <input type="text" class="form-control m-input" data-col-index="5" name="phone" value="{{ Request::get('phone') }}">
+                                    <label>تاريخ انتهاء الهوية:</label>
+                                    <input type="text" class="form-control m-input datetimepicker-input" id="kt_datetimepicker_7_5" placeholder="تاريخ انتهاء الهوية"  name="identity_end_date" value="<?php echo e(Request::get('identity_end_date')); ?>" data-col-index="5" data-toggle="datetimepicker" data-target="#kt_datetimepicker_7_5">
                                     <br>
-                                </div>
+                                </div>   
                                 <div class="col-lg-3 col-md-4 col-sm-6">
-                                    <label>التصنيف:</label>
-                                    <select name="category_id" class="form-control m-input">
-                                        <option value="">حدد اختيارك</option>
-                                        @foreach($data->categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->title }}</option>
-                                        @endforeach
-                                    </select>
+                                    <label>الاسم علي البطاقة:</label>
+                                    <input type="text" class="form-control m-input" name="card_name" value="<?php echo e(Request::get('card_name')); ?>" data-col-index="6">
                                     <br>
-                                </div>
+                                </div> 
                                 <div class="col-lg-3 col-md-4 col-sm-6">
-                                    <label>شرح الخدمة:</label>
-                                    <input type="text" class="form-control m-input" data-col-index="6" name="service_brief" value="{{ Request::get('service_brief') }}">
+                                    <label>رقم الشحنة:</label>
+                                    <input type="text" class="form-control m-input" name="deliver_no" value="<?php echo e(Request::get('deliver_no')); ?>" data-col-index="7">
                                     <br>
-                                </div>
-                                <div class="col-lg-3 col-md-4 col-sm-6">
-                                    <label>المجال الفني:</label>
-                                    <select name="field_id" class="form-control m-input">
-                                        <option value="">حدد اختيارك</option>
-                                        @foreach($data->fields as $field)
-                                        <option value="{{ $field->id }}">{{ $field->title }}</option>
-                                        @endforeach
-                                    </select>
-                                    <br>
-                                </div>
-                                <div class="col-lg-3 col-md-4 col-sm-6">
-                                    <label>المدينة:</label>
-                                    <select name="city_id" class="form-control m-input">
-                                        <option value="">حدد اختيارك</option>
-                                        @foreach($data->cities as $city)
-                                        <option value="{{ $city->id }}">{{ $city->title }}</option>
-                                        @endforeach
-                                    </select>
-                                    <br>
-                                </div>
+                                </div> 
                                 <div class="col-lg-3 col-md-4 col-sm-6">
                                     <label>العضوية:</label>
                                     <select name="membership_id" class="form-control m-input">
                                         <option value="">حدد اختيارك</option>
-                                        @foreach($data->memberships as $membership)
-                                        <option value="{{ $membership->id }}">{{ $membership->title }}</option>
-                                        @endforeach
+                                        <?php $__currentLoopData = $data->memberships; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $membership): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($membership->id); ?>"><?php echo e($membership->title); ?></option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                     <br>
                                 </div>
                                 <div class="col-lg-3 col-md-4 col-sm-6">
-                                    <input type="hidden" class="url" value="{{ $data->url }}">
+                                    <label>تاريخ البدء:</label>
+                                    <input type="text" class="form-control datetimepicker-input" id="kt_datetimepicker_7_1" placeholder="تاريخ البدء"  name="start_date" value="<?php echo e(Request::get('start_date')); ?>" data-col-index="5" data-toggle="datetimepicker" data-target="#kt_datetimepicker_7_1" />
+                                    <br>
+                                </div>
+                                <div class="col-lg-3 col-md-4 col-sm-6">
+                                    <label>تاريخ الانتهاء:</label>
+                                    <input type="text" class="form-control datetimepicker-input" id="kt_datetimepicker_7_3" placeholder="تاريخ الانتهاء"  name="end_date" value="<?php echo e(Request::get('end_date')); ?>" data-col-index="6" data-toggle="datetimepicker" data-target="#kt_datetimepicker_7_3" />
+                                    <br>
+                                </div>
+                                <div class="col-lg-3 col-md-4 col-sm-6">
                                     <label>الحالة:</label>
                                     <select name="status" class="form-control m-input">
                                         <option value="">حدد اختيارك</option>
-                                        <option value="1">طلب جديد</option>
-                                        <option value="2">تم الموافقة</option>
+                                        <option value="1">مفعلة</option>
+                                        <option value="2">تم ارسال الطلب</option>
                                         <option value="3">تم الرفض</option>
-                                        <option value="4">جاري الدفع</option>
-                                        <option value="5">تم الدفع</option>
-                                        <option value="6">تم انشاء العضوية</option>
                                     </select>
                                     <br>
-                                </div>
-                                <div class="col-lg-3 col-md-9 col-sm-12">
-                                    <label>تاريخ الارسال:</label>
-                                    <div class="row">
-                                        <div class="col">
-                                            <input type="text" class="form-control datetimepicker-input" id="kt_datetimepicker_7_1" placeholder="تاريخ الارسال"  name="created_at" value="{{ Request::get('created_at') }}" data-col-index="8" data-toggle="datetimepicker" data-target="#kt_datetimepicker_7_1" />
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                             <div class="m-separator m-separator--md m-separator--dashed"></div>
@@ -230,7 +201,7 @@
                                         </span>
                                     </button>
                                     &nbsp;&nbsp;
-                                    <a href="{{ URL::to('/'.$data->url) }}" class="btn btn-secondary m-btn m-btn--icon" id="m_reset">
+                                    <a href="<?php echo e(URL::to('/userCards')); ?>" class="btn btn-secondary m-btn m-btn--icon" id="m_reset">
                                         <span>
                                             <i class="la la-close"></i>
                                             <span>الغاء</span>
@@ -243,90 +214,59 @@
                 </div>
             </div>
         </div>
-        <input type="hidden" name="data-area" value="{{ \Helper::checkRules('edit-'.$data->name) }}">
-        <input type="hidden" name="data-cols" value="{{ \Helper::checkRules('delete-'.$data->name) }}">
+        <input type="hidden" name="data-area" value="<?php echo e(\Helper::checkRules('edit-user-card')); ?>">
+        <input type="hidden" name="data-cols" value="<?php echo e(\Helper::checkRules('delete-user-card')); ?>">
         <!--begin: Datatable-->
-        <table class="table table-separate table-hover table-bordered table-head-custom table-foot-custom table-checkable" id="kt_datatable">
+        <table class="table table-separate  table-hover table-bordered table-head-custom table-foot-custom table-checkable" id="kt_datatable">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>اختيار</th>
-                    <th>رقم الطلب</th>
-                    <th>الاسم</th>
-                    <th>البريد الالكتروني</th>
-                    <th>رقم الجوال</th>
+                    <th>الكود</th>
+                    <th>الصورة الشخصية</th>
+                    <th>صورة الهوية</th>
+                    <th>رقم الهوية</th>
+                    <th>تاريخ انتهاء الهوية</th>
                     <th>الاسم علي البطاقة</th>
-                    <th>المجال الفني</th>
-                    <th>المدينة</th>
+                    <th>رقم الشحنة</th>
                     <th>العضوية</th>
-                    <th>السيرة الذاتية</th>
+                    <th>تاريخ البدء</th>
+                    <th>تاريخ الانتهاء</th>
                     <th>الحالة</th>
-                    <th>تاريخ الارسال</th>
-                    <th>روابط التواصل الاجتماعي</th>
                     <th>الاجراءات</th>
                 </tr>
             </thead>
             <tfoot>
                 <tr>
                     <th>ID</th>
-                    <th>اختيار</th>
-                    <th>رقم الطلب</th>
-                    <th>الاسم</th>
-                    <th>البريد الالكتروني</th>
-                    <th>رقم الجوال</th>
+                    <th>الكود</th>
+                    <th>الصورة الشخصية</th>
+                    <th>صورة الهوية</th>
+                    <th>رقم الهوية</th>
+                    <th>تاريخ انتهاء الهوية</th>
                     <th>الاسم علي البطاقة</th>
-                    <th>المجال الفني</th>
-                    <th>المدينة</th>
+                    <th>رقم الشحنة</th>
                     <th>العضوية</th>
-                    <th>السيرة الذاتية</th>
+                    <th>تاريخ البدء</th>
+                    <th>تاريخ الانتهاء</th>
                     <th>الحالة</th>
-                    <th>تاريخ الارسال</th>
-                    <th>روابط التواصل الاجتماعي</th>
                     <th>الاجراءات</th>
                 </tr>
             </tfoot>
         </table>
         <!--end: Datatable-->
-        <div class="row mt-5">
-            <div class="col-lg-6 mb-2">
-                <button type="button" class="btn btn-block btn-success selectAll">تحديد الكل</button>
-            </div>
-            <div class="col-lg-6">
-                <button type="button" class="btn btn-block btn-danger deselectAll">الغاء تحديد الكل</button>
-            </div>
-        </div>
-        @if($data->url == 'orders')
-        <div class="row mt-5">
-            <div class="col-lg-12">
-                <button type="button" class="btn btn-block btn-danger delete">حذف نهائي</button>
-            </div>
-        </div>
-        @elseif($data->url == 'trashes')
-        <div class="row mt-5">
-            <div class="col-lg-6">
-                <button type="button" class="btn btn-block btn-danger delete">حذف نهائي</button>
-            </div>
-            <div class="col-lg-6">
-                <button type="button" class="btn btn-block btn-primary backToNew">اخراج من السلة (كطلب جديد)</button>
-            </div>
-        </div>
-        @else
-        <div class="row mt-5">
-            <div class="col-lg-12">
-                <button type="button" class="btn btn-block btn-success delete">حذف</button>
-            </div>
-        </div>
-        @endif
     </div>
 </div>
 <!--end::Card-->
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('modals')
-@include('Partials.search_modal')
-@endsection
+<?php $__env->startSection('modals'); ?>
+<?php echo $__env->make('Partials.search_modal', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php echo $__env->make('Partials.newMemberModal', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php $__env->stopSection(); ?>
 
-{{-- Scripts Section --}}
-@section('scripts')
-<script src="{{ asset('/assets/components/orders-datatables.js')}}"></script>           
-@endsection
+
+<?php $__env->startSection('scripts'); ?>
+<script src="<?php echo e(asset('/assets/components/userCards-datatables.js')); ?>"></script>           
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('Layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /var/www/Server/Projects/Edite/Backend/app/Modules/UserCard/Views/index.blade.php ENDPATH**/ ?>

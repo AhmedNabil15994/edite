@@ -286,7 +286,7 @@
         </table>
         <!--end: Datatable-->
         <div class="row mt-5">
-            <div class="col-lg-6">
+            <div class="col-lg-6 mb-2">
                 <button type="button" class="btn btn-block btn-success selectAll">تحديد الكل</button>
             </div>
             <div class="col-lg-6">
@@ -322,7 +322,6 @@
 
 <?php $__env->startSection('modals'); ?>
 <?php echo $__env->make('Partials.search_modal', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-<?php echo $__env->make('Partials.newMemberModal', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <?php $__env->stopSection(); ?>
 
 
