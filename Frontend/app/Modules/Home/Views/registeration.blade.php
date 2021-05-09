@@ -171,6 +171,7 @@
    			</div>
    		</div>
    	</div>
+   	@include('Partials.privacyModal')
 @endsection
 
 @section('scripts')

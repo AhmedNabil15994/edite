@@ -197,6 +197,18 @@ class HomeControllers extends Controller {
             return redirect()->back()->withInput();
         }
 
+        $checkOrder = Order::getOneByPhone($input['phone']);
+        if($checkOrder){
+            Session::flash('error', 'هذا رقم الجوال مستخدم من قبل');
+            return redirect()->back()->withInput();
+        }
+
+        $checkOrderEmail = Order::getOneByEmail($input['email']);
+        if($checkOrderEmail){
+            Session::flash('error', 'هذا البريد الالكتروني مستخدم من قبل');
+            return redirect()->back()->withInput();
+        }
+        
         $fieldObj = Field::getOne($input['field_id']);
         if(!$fieldObj){
             Session::flash('error', 'هذا المجال الفني غير موجود');

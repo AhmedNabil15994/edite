@@ -67,6 +67,20 @@ class Order extends Model{
         return $data;
     }
 
+    static function getOneByPhone($phone)
+    {
+        $dataObj = self::NotDeleted()
+            ->where('phone', $phone)->first();
+        return $dataObj;
+    }
+
+    static function getOneByEmail($email)
+    {
+        $dataObj = self::NotDeleted()
+            ->where('email', $email)->first();
+        return $dataObj;
+    }
+
     static function getData($source) {
         $dataObj = new \stdClass();
         $dataObj->id = $source->id;
