@@ -19,6 +19,8 @@ class VerifyCsrfToken extends Middleware
         '/sliders/add/uploadImage',
         '/sliders/edit/*/editImage',
 
+        '/userCards/edit/*/editImage',
+
         '/events/add/uploadImage',
         '/events/edit/*/editImage',
         '/events/edit/*/deleteImage',

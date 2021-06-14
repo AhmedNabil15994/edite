@@ -12,10 +12,8 @@ body,html,.tooltip{
 p.locations{
 	cursor: pointer;
 }
-@media(max-width: 1900px){
-	#kt_datatable_wrapper .row .col-sm-12{
-	    overflow-x: scroll !important;
-	}
+#kt_datatable_wrapper .row .col-sm-12{
+	overflow-x: scroll !important;
 }
 
 .forms input[type="color"]{

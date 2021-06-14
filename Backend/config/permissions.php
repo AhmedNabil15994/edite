@@ -168,6 +168,8 @@ return [
 
     'UserCardControllers@index' => 'list-user-cards',
     'UserCardControllers@fastEdit' => 'edit-user-card',
+    'UserCardControllers@printCard' => 'edit-user-card',
+    'UserCardControllers@viewCard' => 'edit-user-card',
     'UserCardControllers@delete' => 'delete-user-card',
     'UserCardControllers@charts' => 'charts-user-card',
     'UserCardControllers@newMember' => 'edit-user-card',

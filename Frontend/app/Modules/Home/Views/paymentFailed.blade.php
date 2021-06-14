@@ -49,6 +49,8 @@
                 <div class="desc">
                   يوجد  مشكلة في الدفع
                   <br>
+                  {{ Session::get('errorMSG') }}
+                  <br>
                   يرجى إعادة المحاولة مره آخرى
                 </div>
                 <form action="{{ URL::to('/payment/'.$data->id) }}" method="get" accept-charset="utf-8">

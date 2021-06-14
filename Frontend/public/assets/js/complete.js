@@ -19,11 +19,11 @@ $(function(){
 		$(this).parent('div.img').remove();
 	});
 
-	if($('.steps ul li.active.last').length){
-		setTimeout(function(){
-			window.location.href='/paymentGateway';
-		},5000);
-	}
+	// if($('.steps ul li.active.last').length){
+	// 	setTimeout(function(){
+	// 		window.location.href='/paymentGateway';
+	// 	},5000);
+	// }
 
 	if($('.datepicker').length){
 		$('.datepicker').datepicker({

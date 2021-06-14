@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use App\Models\UserCard;
 use App\Models\Order;
+use App\Models\OrderDetails;
 use App\Models\User;
 use App\Models\UserMember;
 use App\Models\Membership;
@@ -15,10 +16,37 @@ use Illuminate\Http\Request;
 use DataTables;
 use App\Helper\JawalyHelper;
 use App\Helper\MailHelper;
+use PDF;
 
 class UserCardControllers extends Controller {
 
     use \TraitsFunc;
+
+    protected function validateUpdateObject($input){
+        $rules = [
+            'identity_no' => 'required',
+            'identity_end_date' => 'required',
+            'card_name' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'membership_id' => 'required',
+            'status' => 'required',
+        ];
+
+        $message = [
+            'identity_no.required' => 'يرجي ادخال رقم الهوية',
+            'identity_end_date.required' => "يرجي ادخال تاريخ انتهاء الهوية",
+            'card_name.required' => "يرجي ادخال الاسم علي البطاقة",
+            'start_date.required' => "يرجي ادخال تاريخ البدء",
+            'end_date.required' => "يرجي ادخال تاريخ الانتهاء",
+            'membership_id.required' => "يرجي اختيار العضوية",
+            'status.required' => "يرجي اختيار الحالة",
+        ];
+
+        $validate = \Validator::make($input, $rules, $message);
+
+        return $validate;
+    }
 
     protected function validateObject($input){
         $rules = [
@@ -36,8 +64,7 @@ class UserCardControllers extends Controller {
         return $validate;
     }
 
-    public function index(Request $request)
-    {   
+    public function index(Request $request){  
         if($request->ajax()){
             $data = UserCard::dataList();
             return Datatables::of($data['data'])->make(true);
@@ -52,6 +79,170 @@ class UserCardControllers extends Controller {
         Order::NotDeleted()->where('id',$menuObj->order_id)->update(['status'=>3]);
         WebActions::newType(3,'UserCard');
         return \Helper::globalDelete($menuObj);
+    }
+
+    public function printCard($id) {
+        $id = (int) $id;
+        $menuObj = UserCard::getOne($id);
+        if(!$menuObj){
+            return redirect(404);
+        }
+        $data['data'] = UserCard::getData($menuObj);
+        $data['data']->order = Order::getData($menuObj->Order);
+
+        $pdf = PDF::loadView('UserCard.Views.print', $data)
+                ->setPaper('a4', 'landscape')
+                ->setOption('margin-bottom', '0mm')
+                ->setOption('margin-top', '0mm')
+                ->setOption('margin-right', '0mm')
+                ->setOption('margin-left', '0mm');
+
+        return $pdf->download('MemberShip.pdf');
+    }
+
+    public function viewCard($id) {
+        $id = (int) $id;
+        $menuObj = UserCard::getOne($id);
+        if(!$menuObj){
+            return redirect(404);
+        }
+        $data['data'] = UserCard::getData($menuObj);
+        $data['data']->order = Order::getData($menuObj->Order);
+        return view('UserCard.Views.view')->with('data',  (object) $data['data']);
+    }  
+
+    public function edit($id) {
+        $id = (int) $id;
+        $menuObj = UserCard::getOne($id);
+        if(!$menuObj){
+            return redirect(404);
+        }
+        $data['data'] = UserCard::getData($menuObj);
+        $data['data']->order = Order::getData($menuObj->Order);
+        $data['data']->allmemberships = Membership::dataList(1)['data'];
+        return view('UserCard.Views.edit')->with('data',  (object) $data['data']);
+    }
+
+    public function update($id){
+        $id = (int) $id;
+        $input = \Request::all();
+
+        $menuObj = UserCard::getOne($id);
+        if(!$menuObj){
+            return redirect(404);
+        }
+
+        $validate = $this->validateUpdateObject($input);
+        if($validate->fails()){
+            \Session::flash('error', $validate->messages()->first());
+            return redirect()->back();
+        }
+
+        if(isset($input['deliver_no']) && !empty($input['deliver_no'])){
+            $menuObj->deliver_no = $input['deliver_no'];
+        }
+
+        if(isset($input['membership_id']) && !empty($input['membership_id'])){
+            $menuObj->membership_id = $input['membership_id'];
+        }
+
+        if(isset($input['start_date']) && !empty($input['start_date'])){
+            $menuObj->start_date = $input['start_date'];
+        }
+
+        if(isset($input['end_date']) && !empty($input['end_date'])){
+            $menuObj->end_date = $input['end_date'];
+        }
+
+        if(isset($input['status']) && !empty($input['status'])){
+            $menuObj->status = $input['status'];
+        }
+
+        $menuObj->save();
+        
+        $orderDetailsObj = OrderDetails::where('order_id',$menuObj->order_id)->first();
+
+        if(isset($input['identity_no']) && !empty($input['identity_no'])){
+            $orderDetailsObj->identity_no = $input['identity_no'];
+        }
+
+        if(isset($input['identity_end_date']) && !empty($input['identity_end_date'])){
+            $orderDetailsObj->identity_end_date = $input['identity_end_date'];
+        }
+
+        $orderDetailsObj->save();
+
+        $orderObj = Order::find($menuObj->order_id);
+        if(isset($input['card_name']) && !empty($input['card_name'])){
+            $orderObj->card_name = $input['card_name'];
+            $orderObj->save();
+        }        
+
+        // Order Details
+        //identity_image
+        //image
+
+        WebActions::newType(4,'UserCard');
+        Session::flash('success','تم التعديل بنجاح');
+        return redirect()->back()->withInput();
+    }
+
+
+    public function uploadImage(Request $request,$id=false){
+        \Session::put('identity_image', '');
+        \Session::put('image', '');
+        if ($request->hasFile('file')) {
+            $files = $request->file('file');
+            $images = self::addImage($files,$id,'identity_image');
+            if ($images == false) {
+                return \TraitsFunc::ErrorMessage("حدث مشكلة في رفع الملفات");
+            }
+            \Session::put('identity_image',$images);
+            return \TraitsFunc::SuccessResponse('تم رفع الصورة بنجاح');
+        }
+
+        if ($request->hasFile('file2')) {
+            $files = $request->file('file2');
+            $images = self::addImage($files,$id,'image');
+            if ($images == false) {
+                return \TraitsFunc::ErrorMessage("حدث مشكلة في رفع الملفات");
+            }
+            \Session::put('image',$images);
+            return \TraitsFunc::SuccessResponse('تم رفع الصورة بنجاح');
+        }
+    }
+
+    public function addImage($images,$nextID=false,$type) {
+        $fileName = \ImagesHelper::UploadImage('orders', $images, $nextID);
+        if($fileName == false){
+            return false;
+        }
+
+        $userCardObj = UserCard::find($nextID);
+
+        $menuObj = OrderDetails::where('order_id',$userCardObj->order_id)->first();
+        $menuObj->$type = $fileName;
+        $menuObj->save();
+        
+        return 1;        
+    }
+
+    public function deleteImage($id){
+        $id = (int) $id;
+        $input = \Request::all();
+        $userCardObj = UserCard::find($id);
+
+        $menuObj = OrderDetails::where('order_id',$userCardObj->order_id)->first();
+
+        if($menuObj == null) {
+            return \TraitsFunc::ErrorMessage("هذه الصفحة غير موجودة");
+        }
+
+        $type = $input['type'];
+        $menuObj->$type = '';
+        $menuObj->save();
+
+        return \TraitsFunc::SuccessResponse('تم حذف الصورة بنجاح');
     }
 
      public function newMember(){

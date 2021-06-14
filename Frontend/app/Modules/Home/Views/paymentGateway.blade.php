@@ -45,7 +45,7 @@
 					<div class="formStyle">
 						<div class="paymentNow">
 							<h2 class="title">اكمال الدفع:</h2>
-							<form action="{{ $data->redirectURL }}" class="paymentWidgets" data-brands="VISA MASTER AMEX"></form>
+							<form action="{{ $data->redirectURL }}" class="paymentWidgets" data-brands="{{ $data->formBrands }}"></form>
 						</div>
 					</div>
    				</div>
@@ -82,6 +82,6 @@
         locale: "ar"
     }
 </script>
-<script async src="https://test.oppwa.com/v1/paymentWidgets.js?checkoutId={{ $data->response->id }}"></script>
+<script async src="https://oppwa.com/v1/paymentWidgets.js?checkoutId={{ $data->response->id }}"></script>
 <script src="{{ asset('/assets/js/complete.js') }}" type="text/javascript"></script>
 @endsection

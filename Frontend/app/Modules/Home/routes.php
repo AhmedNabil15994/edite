@@ -19,7 +19,7 @@ Route::group(['prefix' => '/'] , function () {
     Route::post('/complete/{id}', 'HomeControllers@postComplete');
 
     Route::get('/payment/{id}', 'HomeControllers@payment');
-    Route::get('/paymentGateway','HomeControllers@paymentGateway');
+    Route::get('/paymentGateway/{type}','HomeControllers@paymentGateway');
     Route::get('/checkPayment', 'HomeControllers@checkPayment');
     Route::get('/paymentFailed', 'HomeControllers@paymentFailed');
     Route::get('/paymentSuccess', 'HomeControllers@paymentSuccess');

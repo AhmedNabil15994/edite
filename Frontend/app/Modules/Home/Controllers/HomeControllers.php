@@ -437,6 +437,7 @@ class HomeControllers extends Controller {
         $id = str_replace('order-', '', $key);
         $id = (int) $id;
         Session::put('newOrderId',$id);
+        Session::forget('errorMSG');
         $orderObj = Order::getOne($id);
         if($orderObj == null){
             Session::flash('error', 'هذا الطلب غير موجود');
@@ -451,8 +452,8 @@ class HomeControllers extends Controller {
         return view('Home.Views.payment')->with('data',(object) $data);
     }
 
-    public function paymentGateway(){
-        if(!Session::has('newOrderId') || Session::get('newOrderId') == 0){
+    public function paymentGateway($type){
+        if(!Session::has('newOrderId') || Session::get('newOrderId') == 0 || !in_array($type, ['VISA','MASTER','MADA'])){
             return redirect('404');
         }
         $id = Session::get('newOrderId');
@@ -466,20 +467,33 @@ class HomeControllers extends Controller {
             Session::flash('error', 'هذا الطلب قيد الملاحظة');
             return redirect()->to('/');
         }
+        if($type == 'MADA'){
+            $brands = 'MADA';
+        }else{
+            $brands = 'VISA MASTER';
+        }
+
+        Session::put('paymentType',$type);
 
         $data['price'] = $orderObj->Membership->price.'.00';
-        $responseObj = \PaymentHelper::getPaymentInfo($data);
+        $data['id'] = $orderObj->id;
+        $data['email'] = $orderObj->email;
+        $responseObj = \PaymentHelper::getPaymentInfo($data,$type);
         $dataObj['response'] = $responseObj;
         $dataObj['redirectURL'] = \URL::to('/checkPayment');
+        $dataObj['formBrands'] = $brands;
         return view('Home.Views.paymentGateway')->with('data',(object) $dataObj);
     }
 
     public function checkPayment(){
         $data = \Request::all();
-        $responseObj = \PaymentHelper::checkPaymentStatus($data['id']);
-        if(strpos($responseObj->result->description,'successful') !== false){
+        $responseObj = \PaymentHelper::checkPaymentStatus($data['id'],Session::get('paymentType'));
+        if(strpos($responseObj->result->description,'Transaction succeeded') !== false || strpos($responseObj->resultDetails->ExtendedDescription,'Transaction Approved.') !== false || strpos(@$responseObj->resultDetails->{'response.acquirerMessage'},'Approved') !== false){
+            Session::forget('paymentType');
             return redirect('/paymentSuccess');
         }
+        Session::put('errorMSG',@$responseObj->resultDetails->{'response.acquirerMessage'});
+        Session::flash('error',@$responseObj->resultDetails->{'response.acquirerMessage'});
         return redirect('/paymentFailed');
     }
 
@@ -503,6 +517,7 @@ class HomeControllers extends Controller {
             Session::flash('error', 'هذا الطلب قيد الملاحظة');
             return redirect()->to('/');
         }
+
         $orderObj = Order::getOne($id);
         $orderObj->status = 5;
         $orderObj->save();

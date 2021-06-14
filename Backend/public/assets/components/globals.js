@@ -207,6 +207,54 @@ $('#kt_dropzone_11').dropzone({
     },
 });
 
+$('#kt_dropzone_110').dropzone({
+    url: myURL + "/editImage", // Set the url for your upload script location
+    paramName: "file", // The name that will be used to transfer the file
+    maxFiles: 1,
+    maxFilesize: 10, // MB
+    addRemoveLinks: true,
+    accept: function(file, done) {
+        if (file.name == "justinbieber.jpg") {
+            done("Naha, you don't.");
+        } else {
+            done();
+        }
+    },
+    success:function(file,data){
+        if(data){
+            // data = JSON.parse(data);
+            if(data.status.status != 1){
+                errorNotification(data.status.message);
+            }
+        }
+    },
+});
+
+
+$('#kt_dropzone_111').dropzone({
+    url: myURL + "/editImage", // Set the url for your upload script location
+    paramName: "file2", // The name that will be used to transfer the file
+    maxFiles: 1,
+    maxFilesize: 10, // MB
+    addRemoveLinks: true,
+    accept: function(file, done) {
+        if (file.name == "justinbieber.jpg") {
+            done("Naha, you don't.");
+        } else {
+            done();
+        }
+    },
+    success:function(file,data){
+        if(data){
+            // data = JSON.parse(data);
+            if(data.status.status != 1){
+                errorNotification(data.status.message);
+            }
+        }
+    },
+});
+
+
 $('.select2').select2({
   placeholder: {
     id: '-1', // the value of the option
@@ -228,6 +276,32 @@ $('a.DeletePhoto').on('click',function(e){
         },
         success:function(data){
             data = JSON.parse(data);
+            if(data.status.status == 1){
+                successNotification(data.status.message);
+                $('#my-preview').remove();
+            }else{
+                errorNotification(data.status.message);
+            }
+        },
+    });
+});
+
+$('a.DeleteCardPhoto').on('click',function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    var id = $(this).data('area');
+    var type = $(this).data('tabs');
+    $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
+    $.ajax({
+        type: 'POST',
+        url: myURL+'/deleteImage',
+        data:{
+            '_token': $('meta[name="csrf-token"]').attr('content'),
+            'id': id,
+            'type' : type,
+        },
+        success:function(data){
+            // data = JSON.parse(data);
             if(data.status.status == 1){
                 successNotification(data.status.message);
                 $('#my-preview').remove();

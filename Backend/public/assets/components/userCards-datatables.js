@@ -234,6 +234,15 @@ var KTDatatablesAdvancedMultipleControls = function() {
 					render: function(data, type, full, meta) {
 						var deleteButton = '';
 						var newMembButton = '';
+						var editButton = '';
+
+						if($('input[name="data-area"]').val() == 1){
+							editButton = '<a href="/userCards/edit/'+data+'" class="dropdown-item">'+
+		                                    '<i class="m-nav__link-icon fa fa-pencil-alt"></i>'+
+		                                    '<span class="m-nav__link-text">تعديل</span>'+
+		                                '</a>';
+						}
+
 						if($('input[name="data-cols"]').val() == 1){
 							deleteButton = '<a href="#" class="dropdown-item" onclick="deleteItem('+data+')">'+
 		                                    '<i class="m-nav__link-icon fa fa-trash"></i>'+
@@ -252,6 +261,11 @@ var KTDatatablesAdvancedMultipleControls = function() {
 		                            '</button>'+
 		                            '<div class="dropdown-menu" dropdown-toggle="hover">'+
 		                                newMembButton+
+		                                '<a href="/userCards/'+full.id+'/viewCard" class="dropdown-item">'+
+		                                    '<i class="m-nav__link-icon far fa-credit-card"></i>'+
+		                                    '<span class="m-nav__link-text">طباعة العضوية</span>'+
+		                                '</a>'+
+		                                editButton+
 		                                deleteButton+
 		                            '</div>'+
 		                        '</div>';

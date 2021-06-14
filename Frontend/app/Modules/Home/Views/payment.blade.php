@@ -7,6 +7,13 @@
 	.select2-container--default[dir="rtl"] .select2-selection--single .select2-selection__arrow{
 		display: none;
 	}
+	.mb-3{
+		margin-bottom: 30px;
+	}
+	.row .col-xs-4 a img{
+		width: 100px;
+		height: 100px;
+	}
 </style>
 @endsection
 
@@ -50,7 +57,18 @@
    					</div>
 					<div class="formStyle">
 						<div class="paymentNow">
-							<h2 class="title">جاري التوجة الآن الى بوابة الدفع</h2>
+							<h2 class="title">اختر نوع الدفع قبل التوجة الى بوابة الدفع</h2>
+							<div class="row mb-3">
+								<div class="col-xs-4"><a href="{{ URL::to('/paymentGateway/VISA') }}">
+									<img src="{{ asset('assets/images/visa.svg') }}" alt="">
+								</a></div>
+								<div class="col-xs-4"><a href="{{ URL::to('/paymentGateway/MASTER') }}">
+									<img src="{{ asset('assets/images/mastercard.svg') }}" alt="">
+								</a></div>
+								<div class="col-xs-4"><a href="{{ URL::to('/paymentGateway/MADA') }}">
+									<img src="{{ asset('assets/images/Mada_Logo.svg') }}" alt="">
+								</a></div>
+							</div>
 							<img src="{{ asset('/assets/images/waiting.svg') }}" alt="" class="iconPayment fa-spin" />
 						</div>
 					</div>

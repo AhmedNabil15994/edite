@@ -29,7 +29,7 @@ class OrderControllers extends Controller {
         }
         $data['title'] = 'الطلبات';
         $data['name'] = 'order';
-        $data['url'] = 'ATAdmin/orders';
+        $data['url'] = 'orders';
         $data['categories'] = [];
         $data['fields'] = Field::dataList(1)['data'];
         $data['cities'] = City::dataList(1)['data'];
@@ -150,6 +150,7 @@ class OrderControllers extends Controller {
         if($status == 2){
             $key = base64_encode('order-'.$menuObj->id);
             $message = 'تم الموافقة علي طلبكم وهذا رابط استكمال التسجيل : '.config('app.FRONT_URL').'complete/'.$key;
+            // dd($message);
             JawalyHelper::sendSMS($menuObj->phone,$message);
         }
 
