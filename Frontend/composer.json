@@ -16,7 +16,7 @@
         "jorenvanhocht/laravel-share": "^4.0",
         "laravel/framework": "^7.29",
         "laravel/tinker": "^2.5",
-        "simplesoftwareio/simple-qrcode": "^4.1",
+        "simplesoftwareio/simple-qrcode": "^4.2",
         "stevebauman/location": "^6.0",
         "watson/active": "^5",
         "yajra/laravel-datatables-oracle": "~9.0"

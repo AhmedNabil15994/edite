@@ -489,6 +489,12 @@ class HomeControllers extends Controller {
         $data = \Request::all();
         $responseObj = \PaymentHelper::checkPaymentStatus($data['id'],Session::get('paymentType'));
         if(strpos($responseObj->result->description,'Transaction succeeded') !== false || strpos($responseObj->resultDetails->ExtendedDescription,'Transaction Approved.') !== false || strpos(@$responseObj->resultDetails->{'response.acquirerMessage'},'Approved') !== false){
+           
+            $id = Session::get('newOrderId');
+            $orderObj = Order::getOne($id);
+            $orderObj->status = 5;
+            $orderObj->save();
+           
             Session::forget('paymentType');
             return redirect('/paymentSuccess');
         }
@@ -513,14 +519,11 @@ class HomeControllers extends Controller {
             return redirect()->to('/');
         }
 
-        if($orderObj->status != 4){
+        if($orderObj->status != 5){
             Session::flash('error', 'هذا الطلب قيد الملاحظة');
+            Session::forget('newOrderId');
             return redirect()->to('/');
         }
-
-        $orderObj = Order::getOne($id);
-        $orderObj->status = 5;
-        $orderObj->save();
 
         $start_date = now()->format('Y-m-d');
         $end_date = date("Y-m-d", strtotime(now()->format('Y-m-d'). " + 1 year"));
@@ -542,6 +545,7 @@ class HomeControllers extends Controller {
         
         $dataObj['id'] = base64_encode('order-'.Session::get('newOrderId'));
         $dataObj['price'] = $orderObj->Membership->price.'.00';
+        $dataObj['membership'] = $menuObj;
         Session::forget('newOrderId');
         return view('Home.Views.paymentSuccess')->with('data',(object) $dataObj);
     }

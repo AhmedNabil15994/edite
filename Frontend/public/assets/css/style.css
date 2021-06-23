@@ -2095,8 +2095,11 @@ input[type="number"] {
 }
 @media(min-width:  1200px){
 	.owl-carousel .owl-wrapper-outer{
-		padding-left: 180px;
+		/*padding-left: 180px;*/
 	}	
+}
+.mb-4{
+	margin-bottom: 60px;
 }
 
 

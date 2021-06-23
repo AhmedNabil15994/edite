@@ -10,6 +10,10 @@ class Membership extends Model{
     protected $primaryKey = 'id';
     public $timestamps = false;
 
+    public function Order(){
+        return $this->hasOne('App\Models\Order','id','order_id');
+    }
+
     static function getOne($id){
         return self::NotDeleted()
             ->where('id', $id)

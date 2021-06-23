@@ -3,7 +3,11 @@
 @section('title','الصفحة الرئيسية')
 
 @section('styles')
-
+{{-- <link rel="stylesheet" href="css/bootstrap.css" /> --}}
+{{-- <link rel="stylesheet" href="css/bootstrap-rtl.css" /> --}}
+{{-- <link rel="stylesheet" href="css/font-awesome.min.css" /> --}}
+<link rel="stylesheet" href="{{ asset('/assets/cards/css/style.css') }}" />
+<link rel="stylesheet" href="{{ asset('/assets/cards/css/responisve.css') }}" />
 @endsection
 
 @section('content')
@@ -66,8 +70,34 @@
             </div>
         </div>
     </div>
-    
-    <div class="memberships" id="memberships" data-scroll-index="3">
+        
+    <div class="memberships" data-scroll-index="3">
+        <div class="bg" style="background: url('{{ asset("/assets/cards/images/bgMemberShip.png") }}');"></div>
+        <h2 class="titleStyle mb-4">العضويات</h2>
+        <div class="container">
+            <div class="Owl" id="memberships">
+                @foreach($data->memberships as $key => $membership)
+                <div class="item">
+                    <img src="{{ asset('/assets/cards/images/card'.($key+1).'.png') }}" />
+                    <div class="details">
+                        <h2 class="title">عضوية {{ $membership->title }}</h2>
+                        <span>رسوم اشتراك</span>
+                        <span>{{ $membership->price }} ر.س</span>
+                        <a href="{{ URL::to('/registeration?membership_id='.$membership->id) }}" class="btnStyle">طلب الانضمام</a>
+                        <ul class="btns">
+                            <input type="hidden" name="conditions" value="{{ json_encode($membership->conditionsText) }}">
+                            <input type="hidden" name="features" value="{{ json_encode($membership->featruesText) }}">
+                            <li><a class="conditions" href="#">الشروط</a></li>
+                            <li><a class="features" href="#">المميزات</a></li>
+                        </ul>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+
+   {{--  <div class="memberships" id="memberships" data-scroll-index="3">
         <h2 class="titleStyle">العضويات</h2>
         <div class="imgFooter"></div>
         <ul class="tabsBtns clearfix tabsPlans" id="tabs1">
@@ -125,7 +155,7 @@
                 @endforeach
             </div>
         </div>
-    </div>
+    </div> --}}
     
     <div class="events">
         <div class="container">
@@ -151,8 +181,10 @@
         </div>
     </div>
 @include('Partials.eventModal')
+@include('Partials.memberships')
 @endsection
 
 @section('scripts')
+<script src="{{ asset('/assets/cards/js/custom.js') }}"></script>
 <script src="{{ asset('/assets/js/event.js') }}"></script>
 @endsection

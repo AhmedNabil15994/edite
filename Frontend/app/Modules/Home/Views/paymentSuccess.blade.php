@@ -3,9 +3,15 @@
 @section('title','الدفع')
 
 @section('styles')
+<link rel="stylesheet" href="{{ asset('/assets/cards/css/style.css') }}" />
+<link rel="stylesheet" href="{{ asset('/assets/cards/css/responisve.css') }}" />
 <style type="text/css" media="screen">
 	.select2-container--default[dir="rtl"] .select2-selection--single .select2-selection__arrow{
 		display: none;
+	}
+	.footerCard svg{
+		position: absolute;
+		left: 0;
 	}
 </style>
 @endsection
@@ -44,25 +50,39 @@
    					</div>
   					<div class="formStyle">
   						<div class="cash">
-                <img src="{{ asset('/assets/images/cash.png') }}" />
-                <h2 class="title">تم الدفع بنجاح</h2>
-                <div class="desc">
-                  شكراً لقد تم استلام دفعتكم بنجاح وجاري تفعيل حسابكم 
-                  وستصلك رسالة التفعيل على البريد الالكتروني الخاص بك
-                </div>
-              </div>
+                			<img src="{{ asset('/assets/images/cash.png') }}" />
+                			<h2 class="title">تم الدفع بنجاح</h2>
+                			<div class="desc">
+                  				شكراً لقد تم استلام دفعتكم بنجاح وجاري تفعيل حسابكم 
+                  				وستصلك رسالة التفعيل على البريد الالكتروني الخاص بك
+                			</div>
+              			</div>
   					</div>
      			</div>
    				<div class="col-md-7 center-block">
-   					<div class="details">
-   						<h2 class="title">تفاصيل الفاتورة</h2>
-   						<ul class="list">
-   							<li class="clearfix">رسوم العضوية <span>{{ $data->price }} SAR</span></li>
-   							<li class="clearfix">سعر الشحن <span>0.00 SAR</span></li>
-   							<li class="clearfix">ضريبة القيمة المضافة <span>0.00 SAR</span></li>
-   							<li class="clearfix">الاجمالي <span>{{ $data->price }} SAR</span></li>
-   						</ul>
-   					</div>
+   					<div class="card style{{ $data->membership->membership_id }}">
+                        <img src="{{ asset('/assets/cards/images/bg'.$data->membership->membership_id.'.png') }}" class="bg1" alt="" />
+                        <img src="{{ asset('/assets/cards/images/bg11.png') }}" class="bg2" alt="" />
+                        <div class="head clearfix">
+                            <div class="headDetails">
+                                <img src="{{ asset('/assets/cards/images/9363.png') }}" />
+                                <span>{{ $data->membership->Order->Field->title }}</span>
+                                {{-- <span>Pergerming Arts</span> --}}
+                            </div>
+                            <div class="name">
+                                <span class="ar">{{ $data->membership->Order->card_name }}</span>
+                                {{-- <span>Mohammed Khalid</span> --}}
+                            </div>
+                            <img src="{{ asset('/assets/cards/images/logo.png') }}" class="logo" />
+                        </div>
+                        <span class="type">{{ $data->membership->Membership->title }}</span>
+                        <div class="footerCard">
+                        	{!! \QrCode::size(70)->generate($data->membership->code) !!}
+                            {{-- <img src="{{ asset('/assets/cards/images/qr.png') }}" class="qrcode" /> --}}
+                            <span class="date">{{ date('m/Y',strtotime($data->membership->end_date)) }}</span>
+                            <span class="code">{{ $data->membership->code }}</span>
+                        </div>
+                    </div>
    				</div>
    				
    			</div>
