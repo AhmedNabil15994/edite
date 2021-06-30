@@ -2101,15 +2101,9 @@ input[type="number"] {
 .mb-4{
 	margin-bottom: 60px;
 }
-
-
-
-
-
-
-
-
-
+.owl-carousel#containerItems .owl-item {
+    width: calc(100% / 6 - 105px) !important;
+}
 
 
 

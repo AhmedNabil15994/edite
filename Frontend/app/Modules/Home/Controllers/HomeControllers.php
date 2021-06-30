@@ -19,6 +19,7 @@ use App\Models\WebActions;
 use App\Models\ContactUs;
 use App\Models\Event;
 use App\Models\Coupon;
+use PDF;
 
 class HomeControllers extends Controller {
 
@@ -295,7 +296,7 @@ class HomeControllers extends Controller {
         }
 
         $namesArr = explode(' ', $input['name']);
-        if(count($namesArr) < 4){
+        if(count($namesArr) < 2){
             Session::flash('error','يجب ادخال الاسم رباعي');
             return redirect()->back()->withInput();
         }
@@ -488,7 +489,7 @@ class HomeControllers extends Controller {
     public function checkPayment(){
         $data = \Request::all();
         $responseObj = \PaymentHelper::checkPaymentStatus($data['id'],Session::get('paymentType'));
-        if(strpos($responseObj->result->description,'Transaction succeeded') !== false || strpos($responseObj->resultDetails->ExtendedDescription,'Transaction Approved.') !== false || strpos(@$responseObj->resultDetails->{'response.acquirerMessage'},'Approved') !== false){
+        if(strpos($responseObj->result->description,'Transaction succeeded') !== false || (isset($responseObj->resultDetails) && strpos($responseObj->resultDetails->ExtendedDescription,'Transaction Approved.') !== false || strpos(@$responseObj->resultDetails->{'response.acquirerMessage'},'Approved') !== false)){
            
             $id = Session::get('newOrderId');
             $orderObj = Order::getOne($id);
@@ -546,6 +547,7 @@ class HomeControllers extends Controller {
         $dataObj['id'] = base64_encode('order-'.Session::get('newOrderId'));
         $dataObj['price'] = $orderObj->Membership->price.'.00';
         $dataObj['membership'] = $menuObj;
+        $dataObj['image'] = OrderDetails::getData(OrderDetails::where('order_id',$orderObj->id)->first())->image;
         Session::forget('newOrderId');
         return view('Home.Views.paymentSuccess')->with('data',(object) $dataObj);
     }
@@ -574,5 +576,24 @@ class HomeControllers extends Controller {
             Session::flash('status','العضوية رقم : '.$code.' <br>حالة العضوية : '.$statusText);
         }
         return redirect()->back();
+    }
+
+    public function printCard($id) {
+        $id = (int) $id;
+        $menuObj = UserCard::getOne($id);
+        if(!$menuObj){
+            return redirect(404);
+        }
+        $data['data'] = UserCard::getData($menuObj);
+        $data['data']->order = Order::getData($menuObj->Order);
+
+        $pdf = PDF::loadView('Home.Views.print', $data)
+                ->setPaper('a4', 'landscape')
+                ->setOption('margin-bottom', '0mm')
+                ->setOption('margin-top', '0mm')
+                ->setOption('margin-right', '0mm')
+                ->setOption('margin-left', '0mm');
+
+        return $pdf->download('MemberShip.pdf');
     }
 }

@@ -27,7 +27,7 @@
                         <a href="<?php echo e(URL::to('/')); ?>" class="text-muted"><i class="m-nav__link-icon la la-home"></i></a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="<?php echo e(URL::to('/العضويات')); ?>" class="text-muted">العضويات</a>
+                        <a href="<?php echo e(URL::to('/userCards')); ?>" class="text-muted">العضويات</a>
                     </li>
                     <li class="breadcrumb-item">
                         <a href="<?php echo e(URL::current()); ?>" class="text-muted">تعديل</a>
@@ -103,10 +103,17 @@
                             <input class="form-control datetimepicker-input" id="kt_datetimepicker_7_1"  data-toggle="datetimepicker" data-target="#kt_datetimepicker_7_1" type="text" name="identity_end_date" value="<?php echo e($data->identity_end_date); ?>" maxlength="" placeholder="">
                             <span class="m-form__help LastUpdate">تم الحفظ فى :  <?php echo e($data->created_at); ?></span>
                         </div>
-                    </div>     
+                    </div>    
                     <div class="form-group m-form__group row" style="padding-right: 0;padding-left: 0;padding-bottom: 10px;">
                         <div class="col-lg-12">
-                            <label class="label label-danger label-pill label-inline mr-2" style="margin-bottom: 20px;">الاسم علي البطاقة</label>
+                            <label class="label label-danger label-pill label-inline mr-2" style="margin-bottom: 20px;">الاسم عربي</label>
+                            <input class="form-control" type="text" name="name" value="<?php echo e($data->order->name); ?>" maxlength="" placeholder="">
+                            <span class="m-form__help LastUpdate">تم الحفظ فى :  <?php echo e($data->created_at); ?></span>
+                        </div>
+                    </div> 
+                    <div class="form-group m-form__group row" style="padding-right: 0;padding-left: 0;padding-bottom: 10px;">
+                        <div class="col-lg-12">
+                            <label class="label label-danger label-pill label-inline mr-2" style="margin-bottom: 20px;">الاسم انجليزي</label>
                             <input class="form-control" type="text" name="card_name" value="<?php echo e($data->card_name); ?>" maxlength="" placeholder="">
                             <span class="m-form__help LastUpdate">تم الحفظ فى :  <?php echo e($data->created_at); ?></span>
                         </div>
@@ -139,6 +146,18 @@
                                 <option value="">حدد اختيارك</option>
                                 <?php $__currentLoopData = $data->allmemberships; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $membership): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <option value="<?php echo e($membership->id); ?>" <?php echo e($membership->id == $data->membership_id ? 'selected' : ''); ?>><?php echo e($membership->title); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </select>
+                            <span class="m-form__help LastUpdate">تم الحفظ فى :  <?php echo e($data->created_at); ?></span>
+                        </div>
+                    </div>  
+                    <div class="form-group m-form__group row" style="padding-right: 0;padding-left: 0;padding-bottom: 10px;">
+                        <div class="col-lg-12">
+                            <label class="label label-danger label-pill label-inline mr-2" style="margin-bottom: 20px;">المجال الفني</label>
+                            <select name="field_id" class="form-control">
+                                <option value="">حدد اختيارك</option>
+                                <?php $__currentLoopData = $data->fields; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $field): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <option value="<?php echo e($field->id); ?>" <?php echo e($field->id == $data->order->field_id ? 'selected' : ''); ?>><?php echo e($field->title); ?></option>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
                             <span class="m-form__help LastUpdate">تم الحفظ فى :  <?php echo e($data->created_at); ?></span>

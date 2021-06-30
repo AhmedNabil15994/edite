@@ -85,7 +85,7 @@ var KTDatatablesAdvancedMultipleControls = function() {
 			       	dtParms.status = $('select[name="status"]').val();
 			       	dtParms.category_id = $('select[name="category_id"]').val();
 			        dtParms.columnsDef= [
-						'id','order_no' ,'name','email','phone','card_name','fieldText','cityText','membershipText','brief','statusText','created_at','details'];
+						'id','order_no' ,'name','email','phone','card_name','fieldText','fieldTextEn','cityText','membershipText','brief','statusText','created_at','details'];
 			        return dtParms
 			    }
 			},
@@ -98,6 +98,7 @@ var KTDatatablesAdvancedMultipleControls = function() {
 				{data: 'phone',},
 				{data: 'card_name',},
 				{data: 'fieldText',},
+				{data: 'fieldTextEn',},
 				{data: 'cityText',},
 				{data: 'membershipText',},
 				{data: 'brief',},
@@ -156,7 +157,7 @@ var KTDatatablesAdvancedMultipleControls = function() {
 				},
 				{
 					targets: 6,
-					title: 'الاسم علي البطاقة',
+					title: 'الاسم انجليزي',
 					className: 'edits',
 					render: function(data, type, full, meta) {
 						return '<a class="editable" data-col="card_name" data-id="'+full.id+'">'+data+'</a>';
@@ -164,7 +165,7 @@ var KTDatatablesAdvancedMultipleControls = function() {
 				},
 				{
 					targets: 7,
-					title: 'المجال الفني',
+					title: 'المجال الفني (عربي)',
 					className: 'edits selects',
 					render: function(data, type, full, meta) {
 						return '<a class="editable" data-col="field_id" data-id="'+full.id+'"><div class="btn btn-raised waves-effect">'+data+'</div></a>';
@@ -172,6 +173,14 @@ var KTDatatablesAdvancedMultipleControls = function() {
 				},
 				{
 					targets: 8,
+					title: 'المجال الفني (انجليزي)',
+					className: 'edits',
+					render: function(data, type, full, meta) {
+						return '<a class="" data-col="" data-id="'+full.id+'"><div class="btn btn-raised waves-effect">'+data+'</div></a>';
+					},
+				},
+				{
+					targets: 9,
 					title: 'المدينة',
 					className: 'edits selects',
 					render: function(data, type, full, meta) {
@@ -179,7 +188,7 @@ var KTDatatablesAdvancedMultipleControls = function() {
 					},
 				},
 				{
-					targets: 9,
+					targets: 10,
 					title: 'العضوية',
 					className: 'edits selects',
 					render: function(data, type, full, meta) {
@@ -187,7 +196,7 @@ var KTDatatablesAdvancedMultipleControls = function() {
 					},
 				},
 				{
-					targets: 10,
+					targets: 11,
 					title: 'السيرة الذاتية',
 					className: 'edits',
 					render: function(data, type, full, meta) {
@@ -195,7 +204,7 @@ var KTDatatablesAdvancedMultipleControls = function() {
 					},
 				},
 				{
-					targets: 11,
+					targets: 12,
 					title: 'الحالة',
 					className: 'edits selects',
 					render: function(data, type, full, meta) {
@@ -203,7 +212,7 @@ var KTDatatablesAdvancedMultipleControls = function() {
 					},
 				},
 				{
-					targets: 12,
+					targets: 13,
 					title: 'تاريخ الارسال',
 					className: 'edits dates',
 					render: function(data, type, full, meta) {
@@ -211,7 +220,7 @@ var KTDatatablesAdvancedMultipleControls = function() {
 					},
 				},
 				{
-					targets: 13,
+					targets: 14,
 					title: 'روابط التواصل الاجتامعي',
 					className: '',
 					render: function(data, type, full, meta) {

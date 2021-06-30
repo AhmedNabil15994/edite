@@ -169,7 +169,7 @@ var KTDatatablesAdvancedMultipleControls = function() {
 				},
 				{
 					targets: 6,
-					title: 'الاسم علي البطاقة',
+					title: 'الاسم انجليزي',
 					className: 'edits',
 					render: function(data, type, full, meta) {
 						return '<a class="editable" data-col="card_name" data-id="'+full.id+'">'+data+'</a>';

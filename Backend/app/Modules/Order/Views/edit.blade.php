@@ -115,7 +115,7 @@
                     </div>
                     <div class="form-group m-form__group row" style="padding-right: 0;padding-left: 0;padding-bottom: 10px;">
                         <div class="col-lg-12">
-                            <label class="label label-danger label-pill label-inline mr-2" style="margin-bottom: 20px;">الاسم علي البطاقة</label>
+                            <label class="label label-danger label-pill label-inline mr-2" style="margin-bottom: 20px;">الاسم انجليزي</label>
                             <input class="form-control m-input" type="text" name="card_name" value="{{ $data->data->card_name }}" maxlength="" placeholder="">
                             <span class="m-form__help LastUpdate">تم الحفظ فى :  {{ $data->data->created_at }}</span>
                         </div>

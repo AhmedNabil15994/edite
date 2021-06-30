@@ -54,8 +54,8 @@ class OrderDetails extends Model{
         $dataObj->order_id = $source->order_id;
         $dataObj->identity_no = $source->identity_no;
         $dataObj->identity_end_date = $source->identity_end_date;
-        $dataObj->image = self::getPhotoPath($source->id, $source->image);
-        $dataObj->identity_image = self::getPhotoPath($source->id, $source->identity_image);
+        $dataObj->image = self::getPhotoPath($source->order_id, $source->image);
+        $dataObj->identity_image = self::getPhotoPath($source->order_id, $source->identity_image);
         $dataObj->created_at = \Helper::formatDate($source->created_at,'Y-m-d H:i:s');
 
         return $dataObj;

@@ -13,7 +13,7 @@ p.locations{
 	cursor: pointer;
 }
 #kt_datatable_wrapper .row .col-sm-12{
-	overflow-x: scroll !important;
+	/*overflow-x: scroll !important;*/
 }
 
 .forms input[type="color"]{

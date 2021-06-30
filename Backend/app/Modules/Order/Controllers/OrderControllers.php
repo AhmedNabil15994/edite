@@ -29,7 +29,7 @@ class OrderControllers extends Controller {
         }
         $data['title'] = 'الطلبات';
         $data['name'] = 'order';
-        $data['url'] = 'orders';
+        $data['url'] = 'ATAdmin/orders';
         $data['categories'] = [];
         $data['fields'] = Field::dataList(1)['data'];
         $data['cities'] = City::dataList(1)['data'];

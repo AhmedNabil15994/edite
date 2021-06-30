@@ -26,4 +26,6 @@ Route::group(['prefix' => '/'] , function () {
 
     Route::get('/verify', 'HomeControllers@verify');
     Route::post('/verify', 'HomeControllers@postVerify');
+
+    Route::get('/printCard/{id}', 'HomeControllers@printCard');
 });

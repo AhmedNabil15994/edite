@@ -50,10 +50,10 @@
 						@csrf
 						<div class="row">
 							<div class="col-md-6">
-								<input type="text" placeholder="الاسم الرباعي:" name="name" value="{{ isset($data->data->name) ? $data->data->name  : old('name') }}" />
+								<input type="text" placeholder="الاسم:" name="name" value="{{ isset($data->data->name) ? $data->data->name  : old('name') }}" />
 							</div>
 							<div class="col-md-6">
-								<input type="text" placeholder="الاسم المطلوب في البطاقة:" name="card_name" value="{{ isset($data->data->card_name) ? $data->data->card_name  : old('card_name') }}" />
+								<input type="text" placeholder="الاسم انجليزي:" name="card_name" value="{{ isset($data->data->card_name) ? $data->data->card_name  : old('card_name') }}" />
 							</div>
 							<div class="col-md-6">
 								<input type="tel" placeholder="رقم الجوال:" name="phone" value="{{ isset($data->data->phone) ? $data->data->phone  : old('phone') }}" />

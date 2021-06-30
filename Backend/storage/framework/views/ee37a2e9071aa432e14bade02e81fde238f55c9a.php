@@ -151,7 +151,7 @@
                                     <br>
                                 </div>   
                                 <div class="col-lg-3 col-md-4 col-sm-6">
-                                    <label>الاسم علي البطاقة:</label>
+                                    <label>الاسم انجليزي:</label>
                                     <input type="text" class="form-control m-input" name="card_name" value="<?php echo e(Request::get('card_name')); ?>" data-col-index="6">
                                     <br>
                                 </div> 
@@ -226,7 +226,7 @@
                     <th>صورة الهوية</th>
                     <th>رقم الهوية</th>
                     <th>تاريخ انتهاء الهوية</th>
-                    <th>الاسم علي البطاقة</th>
+                    <th>الاسم انجليزي</th>
                     <th>رقم الشحنة</th>
                     <th>العضوية</th>
                     <th>تاريخ البدء</th>
@@ -243,7 +243,7 @@
                     <th>صورة الهوية</th>
                     <th>رقم الهوية</th>
                     <th>تاريخ انتهاء الهوية</th>
-                    <th>الاسم علي البطاقة</th>
+                    <th>الاسم انجليزي</th>
                     <th>رقم الشحنة</th>
                     <th>العضوية</th>
                     <th>تاريخ البدء</th>

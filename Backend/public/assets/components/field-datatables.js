@@ -9,11 +9,11 @@ var KTDatatablesAdvancedMultipleControls = function() {
 			// DOM Layout settings
 			dom:'Bfrtip',
 			dom:
-				"<'row'<'col-sm-12 col-md-9'l><'col-sm-12 col-md-3 text-right'Bf>>" +
-				"<'row'<'col-sm-12 col-md-6'i><'col-sm-12 col-md-6'p>> " +
-				"<'row'<'col-sm-12'tr>>" +
-				"<'row'<'col-sm-12 col-md-9'l><'col-sm-12 col-md-3 text-right'f>>" +
-				"<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>", // read more: https://datatables.net/examples/basic_init/dom.html
+				"<'row'<'col-xs-12 col-sm-6 col-md-6'l><'col-xs-12 col-sm-6 col-md-6 text-right'Bf>>" +
+				"<'row'<'col-xs-6 col-sm-6 col-md-6'i><'col-xs-6 col-sm-6 col-md-6'p>> " +
+				"<'row'<'col-sm-12 'tr>>" +
+				"<'row'<'col-xs-4 col-sm-6 col-md-6 'l><'col-xs-8 col-sm-6 col-md-6  text-right'f>>" +
+				"<'row'<'col-xs-6 col-sm-6 col-md-6 'i><'col-xs-6 col-sm-6 col-md-6 'p>>",
 	        buttons: [
 	            {
 	                extend: 'colvis',
@@ -79,12 +79,13 @@ var KTDatatablesAdvancedMultipleControls = function() {
 				data: {
 					// parameters for custom backend script demo
 					columnsDef: [
-						'id', 'title'],
+						'id', 'title','title_en'],
 				},
 			},
 			columns: [
 				{data: 'id'},
 				{data: 'title',},
+				{data: 'title_en',},
 				{data: 'id', responsivePriority: -1},
 			],
 			columnDefs: [
@@ -94,6 +95,14 @@ var KTDatatablesAdvancedMultipleControls = function() {
 					className: 'edits',
 					render: function(data, type, full, meta) {
 						return '<a class="editable" data-col="title" data-id="'+full.id+'">'+data+'</a>';
+					},
+				},
+				{
+					targets: 2,
+					title: 'العنوان انجليزي',
+					className: 'edits',
+					render: function(data, type, full, meta) {
+						return '<a class="editable" data-col="title_en" data-id="'+full.id+'">'+data+'</a>';
 					},
 				},
 				{

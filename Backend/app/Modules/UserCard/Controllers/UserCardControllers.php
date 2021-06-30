@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use App\Models\UserCard;
 use App\Models\Order;
+use App\Models\Field;
 use App\Models\OrderDetails;
 use App\Models\User;
 use App\Models\UserMember;
@@ -120,6 +121,7 @@ class UserCardControllers extends Controller {
         $data['data'] = UserCard::getData($menuObj);
         $data['data']->order = Order::getData($menuObj->Order);
         $data['data']->allmemberships = Membership::dataList(1)['data'];
+        $data['data']->fields = Field::dataList(1)['data'];
         return view('UserCard.Views.edit')->with('data',  (object) $data['data']);
     }
 
@@ -176,6 +178,16 @@ class UserCardControllers extends Controller {
         if(isset($input['card_name']) && !empty($input['card_name'])){
             $orderObj->card_name = $input['card_name'];
             $orderObj->save();
+        }    
+
+        if(isset($input['name']) && !empty($input['name'])){
+            $orderObj->name = $input['name'];
+            $orderObj->save();
+        } 
+
+        if(isset($input['field_id']) && !empty($input['field_id'])){
+            $orderObj->field_id = $input['field_id'];
+            $orderObj->save();
         }        
 
         // Order Details
@@ -213,16 +225,22 @@ class UserCardControllers extends Controller {
     }
 
     public function addImage($images,$nextID=false,$type) {
-        $fileName = \ImagesHelper::UploadImage('orders', $images, $nextID);
+        $userCardObj = UserCard::find($nextID);
+        $menuObj = OrderDetails::where('order_id',$userCardObj->order_id)->first();
+        
+        $fileName = \ImagesHelper::UploadImage('orders', $images, $userCardObj->order_id);
+       
         if($fileName == false){
             return false;
         }
-
-        $userCardObj = UserCard::find($nextID);
-
-        $menuObj = OrderDetails::where('order_id',$userCardObj->order_id)->first();
-        $menuObj->$type = $fileName;
-        $menuObj->save();
+        
+        if($type == 'image'){
+            $menuObj->image = $fileName;
+            $menuObj->save();            
+        }elseif($type == 'identity_image'){
+            $menuObj->identity_image = $fileName;
+            $menuObj->save();
+        }
         
         return 1;        
     }
@@ -245,7 +263,7 @@ class UserCardControllers extends Controller {
         return \TraitsFunc::SuccessResponse('تم حذف الصورة بنجاح');
     }
 
-     public function newMember(){
+    public function newMember(){
         $input = \Request::all();
         $id = $input['id'];
         $deliver_no = $input['deliver_no'];

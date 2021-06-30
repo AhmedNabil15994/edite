@@ -42,6 +42,9 @@ class Order extends Model{
                 if (isset($input['id']) && !empty($input['id'])) {
                     $query->where('id', $input['id']);
                 }
+                if (isset($input['city_id']) && !empty($input['city_id'])) {
+                    $query->where('city_id', $input['city_id']);
+                }
                 if (isset($input['status']) && !empty($input['status'])) {
                     $query->where('status', $input['status']);
                 }
@@ -53,7 +56,7 @@ class Order extends Model{
             $source->where('status',$status);
         }
         if(!IS_ADMIN){
-            $source->where('city_id',User::getOne(USER_ID)->city_id);
+            $source->whereIn('city_id',explode(',' , User::getOne(USER_ID)->city_id));
         }
         $source->orderBy('id','DESC');
         return self::getObj($source);
@@ -86,14 +89,15 @@ class Order extends Model{
         $dataObj->card_name = $source->card_name;
         $dataObj->field_id = $source->field_id;
         $dataObj->fieldObj = Field::getOne($source->field_id);
-        $dataObj->fieldText = $dataObj->fieldObj->title;
+        $dataObj->fieldText = $dataObj->fieldObj != null ? $dataObj->fieldObj->title : '';
+        $dataObj->fieldTextEn = $dataObj->fieldObj != null ? $dataObj->fieldObj->title_en : '';
         $dataObj->city_id = $source->city_id;
         $dataObj->cityObj = City::getOne($source->city_id);
-        $dataObj->cityText = $dataObj->cityObj->title;
+        $dataObj->cityText = $dataObj->cityObj != null ? $dataObj->cityObj->title : '';
         $dataObj->details = $source->Details != null ? $detailsObj : '';
         $dataObj->membership_id = $source->membership_id;
         $dataObj->membershipObj = Membership::getOne($source->membership_id);
-        $dataObj->membershipText = $dataObj->membershipObj->title;
+        $dataObj->membershipText = $dataObj->membershipObj != null ? $dataObj->membershipObj->title:'';
         $dataObj->identity_no = $source->Details != null ? ($detailsObj->identity_no != null ? $detailsObj->identity_no : '') : '';
         $dataObj->identity_end_date = $source->Details != null ? ($detailsObj->identity_end_date != null ? $detailsObj->identity_end_date : '') : '';
         $dataObj->image = $source->Details != null ? $detailsObj->image : '';
