@@ -77,7 +77,7 @@
                         </div>
                         <span class="type">{{ $data->membership->Membership->title }}</span>
                         <div class="footerCard">
-                            {!! \QrCode::size(70)->generate($data->membership->code) !!}
+                            {!! \QrCode::size(70)->generate(URL::to('/').'/printCard/'.$data->id) !!}
                             {{-- <img src="{{ asset('/assets/cards/images/qr.png') }}" class="qrcode" /> --}}
                             <span class="date">{{ date('m/Y',strtotime($data->membership->end_date)) }}</span>
                             <span class="code">{{ $data->membership->code }}</span>

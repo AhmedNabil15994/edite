@@ -81,7 +81,7 @@
 							</div>
 							<span class="type">{{ $data->membership_name }}</span>
 							<div class="footerCard">
-								{!! \QrCode::size(70)->generate($data->code) !!}
+								{!! \QrCode::size(70)->generate(config('app.FRONT_URL').'printCard/'.$data->id) !!}
 								<span class="date">{{ date('m/Y',strtotime($data->end_date)) }}</span>
 								<span class="code">{{ $data->code }}</span>
 								<div class="clearfix"></div>

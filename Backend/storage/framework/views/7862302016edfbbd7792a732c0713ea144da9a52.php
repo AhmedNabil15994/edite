@@ -20,10 +20,7 @@
     <link rel="stylesheet" href="<?php echo e(asset('/assets/cards/css/responisve.css')); ?>" />
     <style type="text/css">
     	.card{
-    		width: 800px;
-    		margin: auto;
     		margin-top: 250px;
-         padding: 50px 40px;
     	}
     	.footerCard svg{
 			position: absolute;
@@ -48,14 +45,14 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 text-center">
-					<div class="card style1">
+					<div class="card style<?php echo e($data->order->membership_id); ?>">
 						<img src="<?php echo e(asset('/assets/cards/images/bg'.$data->order->membership_id.'.png')); ?>" class="bg1" alt="" />
 						<img src="<?php echo e(asset('/assets/cards/images/bg'.$data->order->membership_id.$data->order->membership_id.'.png')); ?>" class="bg2" alt="" />
 						<div class="head clearfix">
 							<div class="headDetails">
-								<img src="<?php echo e($data->identity_image); ?>" />
+								<img src="<?php echo e($data->image); ?>" />
 								<span><?php echo e($data->order->fieldText); ?></span>
-								
+								<span><?php echo e($data->order->fieldTextEn); ?></span>
 							</div>
 							<div class="name">
 								<span class="ar"><?php echo e($data->order->name); ?></span>
@@ -63,9 +60,9 @@
 							</div>
 							<img src="<?php echo e(asset('/assets/cards/images/logo.png')); ?>" class="logo" />
 						</div>
-						<span class="type">منتسب</span>
+						<span class="type"><?php echo e($data->membership_name); ?></span>
 						<div class="footerCard">
-							<?php echo \QrCode::size(70)->generate($data->code); ?>
+							<?php echo \QrCode::size(70)->generate(config('app.FRONT_URL').'printCard/'.$data->id); ?>
 
 							<span class="date"><?php echo e(date('m/Y',strtotime($data->end_date))); ?></span>
 							<span class="code"><?php echo e($data->code); ?></span>
